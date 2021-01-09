@@ -183,7 +183,7 @@ void loop()
 
     // logger.resetTime();
 
-    RoboCon->process();// should be part of ISR, but then the display is not working propery. I2C also requires an interrupt
+    // 333 RoboCon->process();// should be part of ISR, but then the display is not working propery. I2C also requires an interrupt
   
     // // status led
     digitalWrite(pin_internal_led, HIGH);
@@ -195,19 +195,19 @@ void loop()
     // // may want to put RoboCon->process in an interrupt based timer as well
     // // drawing the display takes quite some time
 
-    RoboCon->process();
+    // 333 RoboCon->process();
     Serialio.process();
-    Mrilparser->process();
-    Mrcpparser->process();
+    // 333 Mrilparser->process();
+    // 333 Mrcpparser->process();
 
-    for (size_t i = 0; i < 8; i++) {
-        if (servos[i]->getOutOfRange()) {
-            logger.warning("out of frequency range. servo i: " + String(i) + " minAngle: "  + String(
-                               servos[i]->getMinRadAngle() / PI * 180) + " maxAngle: " + String(
-                               servos[i]->getMaxRadAngle() / PI * 180) +  " target angle: " +
-                           String(servos[i]->getTargetRadAngle() / PI * 180));
-        }
-    }
+    // 333 for (size_t i = 0; i < 8; i++) {
+    //     if (servos[i]->getOutOfRange()) {
+    //         logger.warning("out of frequency range. servo i: " + String(i) + " minAngle: "  + String(
+    //                            servos[i]->getMinRadAngle() / PI * 180) + " maxAngle: " + String(
+    //                            servos[i]->getMaxRadAngle() / PI * 180) +  " target angle: " +
+    //                        String(servos[i]->getTargetRadAngle() / PI * 180));
+    //     }
+    // }
 
     digitalWrite(pin_internal_led, LOW);
 }
