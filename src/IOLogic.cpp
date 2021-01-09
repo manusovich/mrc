@@ -79,7 +79,8 @@ bool IOLogic::isDone()                                           {
                 break;
 
             default:
-                logger.warning("expected state [0,1], given: " + String(state));
+                // logger.warning("expected state [0,1], given: " + String(state));
+                break;
             }
         }
 

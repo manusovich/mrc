@@ -5,6 +5,7 @@
 #include "AdditionalAxisController.h"
 #include "WaitController.h"
 #include "MRCPR.h"
+#include "Encoder.h"
 
 namespace {
 Logger _logger("MRILParser");
@@ -293,6 +294,10 @@ void MRILParser::parse(char mrilInstruction[], unsigned int length) {
 
             case MRIL_COMMAND_TEST:
 
+                break;
+
+            case MRIL_COMMAND_HOME:
+                _logger.warning("Home Command");
                 break;
 
             case MRIL_COMMAND_HALT:

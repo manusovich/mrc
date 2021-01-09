@@ -1,24 +1,26 @@
 #include "Arduino.h"
 
-// ---- Servos ---- on Teensy PWM pins are 3-6 9-10 20-21
-#define pin_servo_0 3
-#define pin_servo_1 4
-#define pin_servo_2 5
-#define pin_servo_3 6
-#define pin_servo_4 9
-#define pin_servo_5 10
-
-#define pin_additional_servo_6 20
-#define pin_additional_servo_7 -1
+#define j1_step_pin 0
+#define j1_dir_pin 1
+#define j2_step_pin 2
+#define j2_dir_pin 3
+#define j3_step_pin 4
+#define j3_dir_pin 5
+#define j4_step_pin 6
+#define j4_dir_pin 7
+#define j5_step_pin 8
+#define j5_dir_pin 9
+#define j6_step_pin 10
+#define j6_dir_pin 11
 
 // pinNumber, maxAngularVel degree/sec, calibMin, calibMax, angleDegMin, angleDegMax, home position
-const float servoConfig[6][7] = {
-    { pin_servo_0,  300 * DEG_TO_RAD,  700.00, 2380.00,  -90.00 * DEG_TO_RAD,  90.00 * DEG_TO_RAD, 0 },
-    { pin_servo_1,  300 * DEG_TO_RAD,  710.00, 1909.00,  -45.00 * DEG_TO_RAD,  90.00 * DEG_TO_RAD, 0 },
-    { pin_servo_2,  300 * DEG_TO_RAD, 2290.00,  650.00,  -45.00 * DEG_TO_RAD, 135.00 * DEG_TO_RAD, 0 },
-    { pin_servo_3,  300 * DEG_TO_RAD,  740.00, 2260.00,  -90.00 * DEG_TO_RAD,  85.00 * DEG_TO_RAD, 0 },
-    { pin_servo_4,  300 * DEG_TO_RAD,  730.00, 2340.00, -140.00 * DEG_TO_RAD,  15.00 * DEG_TO_RAD, 0 },
-    { pin_servo_5,  300 * DEG_TO_RAD,  740.00, 2200.00,  -90.00 * DEG_TO_RAD,  60.00 * DEG_TO_RAD, 0 }
+const float servoConfig[6][8] = {
+    { j1_step_pin, j1_dir_pin,  300 * DEG_TO_RAD,  700.00, 2380.00,  -90.00 * DEG_TO_RAD,  90.00 * DEG_TO_RAD, 0 },
+    { j2_step_pin, j2_dir_pin,  300 * DEG_TO_RAD,  710.00, 1909.00,  -45.00 * DEG_TO_RAD,  90.00 * DEG_TO_RAD, 0 },
+    { j3_step_pin, j3_dir_pin,  300 * DEG_TO_RAD, 2290.00,  650.00,  -45.00 * DEG_TO_RAD, 135.00 * DEG_TO_RAD, 0 },
+    { j4_step_pin, j4_dir_pin,  300 * DEG_TO_RAD,  740.00, 2260.00,  -90.00 * DEG_TO_RAD,  85.00 * DEG_TO_RAD, 0 },
+    { j5_step_pin, j5_dir_pin,  300 * DEG_TO_RAD,  730.00, 2340.00, -140.00 * DEG_TO_RAD,  15.00 * DEG_TO_RAD, 0 },
+    { j6_step_pin, j6_dir_pin,  300 * DEG_TO_RAD,  740.00, 2200.00,  -90.00 * DEG_TO_RAD,  60.00 * DEG_TO_RAD, 0 }
 };
 
 // mor mp-robot-a/mp-robot-kit
@@ -32,18 +34,18 @@ float geometry[5][3] = {
 
 // E.g. joint 0 cant be < 90° to not crash into itself
 float logicAngleLimits[6][2] = {
-    { servoConfig[0][4],
-      servoConfig[0][5] },
-    { servoConfig[1][4],
-      servoConfig[1][5] },
-    { servoConfig[2][4],
-      servoConfig[2][5] },
-    { servoConfig[3][4],
-      servoConfig[3][5] },
-    { servoConfig[4][4],
-      servoConfig[4][5] },
-    { servoConfig[5][4],
-      servoConfig[5][5] }
+    { servoConfig[0][5],
+      servoConfig[0][6] },
+    { servoConfig[1][5],
+      servoConfig[1][6] },
+    { servoConfig[2][5],
+      servoConfig[2][6] },
+    { servoConfig[3][5],
+      servoConfig[3][6] },
+    { servoConfig[4][5],
+      servoConfig[4][6] },
+    { servoConfig[5][5],
+      servoConfig[5][6] }
 };
 
 // relation between physical and logical angles based on robot kinematic coupling.
@@ -67,14 +69,4 @@ void physicalToLogicalAngles(float angles[6]) {
 
 // float geometry[5][3] = { { 2.5 + 2.3, 7.3, 0 }, { 0, 13.0, 0 }, { 1, 0, 0 }, { 12.6, 0, 0 }, { 0, -3.6, 0 } };
 
-// configure additional axis such as grippers and other devices
-// pinNumber, maxAngularVel degree/sec, calibMin, calibMax, angleDegMin, angleDegMax, home position || angleDegMin/Max can be any value you
-// want to map the min and max frequency to.
-// It may be usefull to map a gripper to 0-100 based on the percentage of opening.
-const float additionalAxisServoConfig[2][7] = {
-    { pin_additional_servo_6, 160.00 * DEG_TO_RAD, 1888.00,    1122,    0.00 * DEG_TO_RAD,  1.00 * DEG_TO_RAD, 0 }, // mapped to 0-1, to
-                                                                                                                    // open:1, closed:0
-    { pin_additional_servo_7, 160.00 * DEG_TO_RAD,    1000, 2000.00,  -90.00 * DEG_TO_RAD, 90.00 * DEG_TO_RAD, 0 }
-};
-
-unsigned int pinMap[10] = { 8, 11, 12, 7, 0, 1, 0, 0, 0, 0 }; // todo
+unsigned int pinMap[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; // todo

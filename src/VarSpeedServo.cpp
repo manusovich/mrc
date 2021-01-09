@@ -175,7 +175,7 @@ unsigned int VarSpeedServo::move() {
         this->map_float(this->currentAngle, this->minRadAngle, this->maxRadAngle, this->minFreq, this->maxFreq)
         );
 
-    if (!this->virtualServo) this->servo.writeMicroseconds(freq);
+    // if (!this->virtualServo) this->servo.writeMicroseconds(freq);
 
     return freq;
 }

@@ -144,7 +144,7 @@ void MRCPParser::parseChar(char incomingByte) {
             inputByteBufferPointer++;
 
             // say what you got:
-            // logger.info("I received: " +String((char)incomingByte)+" ["+String(incomingByte)+"]");
+            logger.info("I received: " +String((char)incomingByte)+" ["+String(incomingByte)+"]");
 
             if (inputByteBufferPointer >= INPUT_BUFFER_SIZE) { // ge because we need a null for last char
                 // frame too long
