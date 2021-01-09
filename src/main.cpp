@@ -155,6 +155,7 @@ void setup()
 }
 
 void onIncomingData(char c) {
+    Serial.print(c);
     Mrcpparser->parseChar(c);
 }
 
