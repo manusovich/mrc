@@ -73,7 +73,7 @@ void setup()
 {
     Serial.begin(9600);
 
-// Eepromstorage.clear();
+    Eepromstorage.clear();
     // --- show start screen ---
     // Display.begin();
     // Display.clear();
