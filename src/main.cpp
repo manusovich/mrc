@@ -84,28 +84,28 @@ void setup()
 
     // // --- init servos ---
 
-    // for (size_t i = 0; i < 6; i++) {
-    //     servos[i] = new VarSpeedServo(servoConfig[i][0],
-    //                             servoConfig[i][1],
-    //                             servoConfig[i][2],
-    //                             servoConfig[i][3],
-    //                             servoConfig[i][4],
-    //                             servoConfig[i][5],
-    //                             servoConfig[i][6]
-    //                             );
+    for (size_t i = 0; i < 6; i++) {
+        servos[i] = new VarSpeedServo(servoConfig[i][0],
+                                 servoConfig[i][1],
+                                 servoConfig[i][2],
+                                 servoConfig[i][3],
+                                 servoConfig[i][4],
+                                 servoConfig[i][5],
+                                 servoConfig[i][6]
+                                 );
 
-    //     servos[i]->setTargetRadAngle(0);
-    // }
+         servos[i]->setTargetRadAngle(0);
+    }
 
     // Kinematic
-    // Kin = new Kinematic(geometry);
+    Kin = new Kinematic(geometry);
 
     // Display.displayText(0, 8 * 1, "KIN");
     // Display.show();
     delay(100);
 
     // Robot Controller
-    // RoboCon = new RobotController(servos, *Kin, logicAngleLimits, logicalToPhysicalAngles, physicalToLogicalAngles); // todo make function
+    RoboCon = new RobotController(servos, *Kin, logicAngleLimits, logicalToPhysicalAngles, physicalToLogicalAngles); // todo make function
                                                                                                                      // optional
 
     // Display.displayText(0, 8 * 2, "Con");
@@ -113,27 +113,27 @@ void setup()
     delay(100);
 
     // Additional Axis
-    // AxisController = new AdditionalAxisController();
+    AxisController = new AdditionalAxisController();
 
     // Display.displayText(0, 8 * 3, "Axis");
     // Display.show();
     delay(100);
 
     // MRIL Parser
-    // Mrilparser = new MRILParser(*RoboCon,
-    //                             IOLogic,
-    //                             *AxisController,
-    //                             WaitController,
-    //                             Mrcpr);
+    Mrilparser = new MRILParser(*RoboCon,
+                                 IOLogic,
+                                 *AxisController,
+                                 WaitController,
+                                 Mrcpr);
     // Display.displayText(40, 8 * 1, "MRIL");
     // Display.show();
     delay(100);
 
     // MRCP Parser
-    // Mrcpparser = new MRCPParser(Eepromstorage,
-    //                             Ringbuffer,
-    //                             *Mrilparser,
-    //                             Mrcpr);
+     Mrcpparser = new MRCPParser(Eepromstorage,
+                                 Ringbuffer,
+                                 *Mrilparser,
+                                 Mrcpr);
     // Display.displayText(40, 8 * 2, "MRCP");
     // Display.show();
     delay(100);
@@ -142,12 +142,12 @@ void setup()
     Serialio.onData(onIncomingData);
 
 
-    // RoboCon->setMovementMethod(RobotController::MOVEMENT_METHODS::LINEAR);
-    // RoboCon->setMaxVelocity(10);
+    RoboCon->setMovementMethod(RobotController::MOVEMENT_METHODS::LINEAR);
+    RoboCon->setMaxVelocity(10);
 
     // init Timer and register callback
-    // Timer1.initialize(updateServosEveryMs * 1000); // 20ms
-    // Timer1.attachInterrupt(updateServos);
+    //Timer1.initialize(updateServosEveryMs * 1000); // 20ms
+    //Timer1.attachInterrupt(updateServos);
 
     pinMode(pin_internal_led,            OUTPUT);
     // pinMode(pin_servo_update_status_led, OUTPUT);
@@ -184,7 +184,7 @@ void loop()
 
     // logger.resetTime();
 
-    // 333 RoboCon->process();// should be part of ISR, but then the display is not working propery. I2C also requires an interrupt
+    RoboCon->process();// should be part of ISR, but then the display is not working propery. I2C also requires an interrupt
   
     // // status led
     digitalWrite(pin_internal_led, HIGH);
@@ -196,19 +196,19 @@ void loop()
     // // may want to put RoboCon->process in an interrupt based timer as well
     // // drawing the display takes quite some time
 
-    // 333 RoboCon->process();
+    RoboCon->process();
     Serialio.process();
-    // 333 Mrilparser->process();
-    // 333 Mrcpparser->process();
+    Mrilparser->process();
+    Mrcpparser->process();
 
-    // 333 for (size_t i = 0; i < 8; i++) {
-    //     if (servos[i]->getOutOfRange()) {
+    // for (size_t i = 0; i < 8; i++) {
+    //      if (servos[i]->getOutOfRange()) {
     //         logger.warning("out of frequency range. servo i: " + String(i) + " minAngle: "  + String(
     //                            servos[i]->getMinRadAngle() / PI * 180) + " maxAngle: " + String(
     //                            servos[i]->getMaxRadAngle() / PI * 180) +  " target angle: " +
     //                        String(servos[i]->getTargetRadAngle() / PI * 180));
     //     }
-    // }
+    //}
 
     digitalWrite(pin_internal_led, LOW);
 }
