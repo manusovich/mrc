@@ -231,7 +231,7 @@ unsigned int VarSpeedServo::move()
     
     //if (!this->_AccelStepper.isRunning()) {
         //logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") move");
-        this->_AccelStepper.runSpeed();
+        this->_AccelStepper.run();
         //logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") move recorded");
     //}
     return 0;
