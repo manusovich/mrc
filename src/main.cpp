@@ -90,11 +90,8 @@ void setup()
         AccelStepper *as = NULL;
         Encoder *enc = NULL;
 
-        if (servoConfig[i][0] != 1)
-        {
-            as = new AccelStepper(AccelStepper::FULL2WIRE, servoConfig[i][0], servoConfig[i][1]);
-            enc = new Encoder(servoConfig[i][4], servoConfig[i][5]);
-        }
+        as = new AccelStepper(AccelStepper::FULL2WIRE, servoConfig[i][0], servoConfig[i][1]);
+        enc = new Encoder(servoConfig[i][4], servoConfig[i][5]);
         servos[i] = new VarSpeedServo(
             servoConfig[i][0],
             servoConfig[i][1],
