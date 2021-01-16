@@ -188,7 +188,7 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
 
     float deltaAngle = this->currentAngleVelocity * this->elapsedTime / 1000.0;
 
-    logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") process.deltaAngle "+String(deltaAngle));
+    // logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") process.deltaAngle "+String(deltaAngle));
       // Serial.println(deltaAngle);
 
     if (fabs(deltaAngle) > fabs(this->targetAngle - this->startAngle))
@@ -210,7 +210,7 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
         }
     }
 
-    logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") call move");
+    // logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") call move");
     return this->move();
 }
 
@@ -223,14 +223,17 @@ bool VarSpeedServo::atTargetAngle()
 
 unsigned int VarSpeedServo::move()
 {
-    logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") move");
     
         // unsigned int freq = int(
         // this->map_float(this->currentAngle, this->minRadAngle, this->maxRadAngle, this->minFreq, this->maxFreq));
 
     // if (!this->virtualServo) this->servo.writeMicroseconds(freq);
-    this->_AccelStepper.runSpeed();
-    logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") move recorded");
+    
+    if (!this->_AccelStepper.isRunning()) {
+        logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") move");
+        this->_AccelStepper.runSpeed();
+        logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") move recorded");
+    }
     return 0;
 }
 
