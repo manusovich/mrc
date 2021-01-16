@@ -155,7 +155,7 @@ void setup()
     RoboCon->setMaxVelocity(10);
 
     // init Timer and register callback
-    Timer1.initialize( updateServosEveryMs * 100000 ); // 20ms
+    Timer1.initialize( updateServosEveryMs * 10000 ); // 20ms
     Timer1.attachInterrupt(updateServos);
 
     pinMode(pin_internal_led, OUTPUT);
@@ -178,7 +178,7 @@ void updateServos()
 
     // timer = micros();
 
-    for (size_t i = 0; i < 8; i++)
+    for (size_t i = 0; i < 6; i++)
     {
         servos[i]->process(updateServosEveryMs);
     }
