@@ -365,7 +365,7 @@ void RobotController::process() {
 
     case MOVING:
     {
-        logger.info("MOVING");
+        // logger.info("MOVING");
 
         // may not be the target pose though
         bool atTargetAngle = true;
@@ -380,7 +380,7 @@ void RobotController::process() {
 
         if (atTargetAngle) {
             // std::cout << "/* attargetangelell */" << '\n';
-            logger.info("at Target angle");
+            //logger.info("at Target angle");
             logger.info(currentInterpolationStep);
             logger.info(totalInterpolationSteps);
 
