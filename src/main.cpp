@@ -85,16 +85,22 @@ void setup()
     // // --- init servos ---
 
     for (size_t i = 0; i < 6; i++) {
-        servos[i] = new VarSpeedServo(servoConfig[i][0],
-                                 servoConfig[i][1],
-                                 servoConfig[i][2],
-                                 servoConfig[i][3],
-                                 servoConfig[i][4],
-                                 servoConfig[i][5],
-                                 servoConfig[i][6]
-                                 );
-
-         servos[i]->setTargetRadAngle(0);
+        AccelStepper *as = new AccelStepper(AccelStepper::FULL2WIRE, servoConfig[i][0], servoConfig[i][1]);
+        Encoder *enc = new Encoder(servoConfig[i][4], servoConfig[i][5]);
+        servos[i] = new VarSpeedServo(
+                                servoConfig[i][0],
+                                servoConfig[i][1],
+                                servoConfig[i][2],
+                                servoConfig[i][3],
+                                servoConfig[i][4],
+                                servoConfig[i][5],
+                                servoConfig[i][6],
+                                servoConfig[i][7],
+                                *as,
+                                *enc,
+                                servoConfig[i][8]
+                                );
+        servos[i]->setTargetRadAngle(0);
     }
 
     // Kinematic

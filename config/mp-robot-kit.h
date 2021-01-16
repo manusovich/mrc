@@ -1,26 +1,49 @@
 #include "Arduino.h"
 
-#define j1_step_pin 0
-#define j1_dir_pin 1
-#define j2_step_pin 2
-#define j2_dir_pin 3
-#define j3_step_pin 4
-#define j3_dir_pin 5
-#define j4_step_pin 6
-#define j4_dir_pin 7
-#define j5_step_pin 8
-#define j5_dir_pin 9
-#define j6_step_pin 10
-#define j6_dir_pin 11
+#define j1_step_pin 8
+#define j1_dir_pin 9
+#define j1_encA_pin 5
+#define j1_encB_pin 6
+#define j1_hs_pin A0
 
-// pinNumber, maxAngularVel degree/sec, calibMin, calibMax, angleDegMin, angleDegMax, home position
-const float servoConfig[6][8] = {
-    { j1_step_pin, j1_dir_pin,  300 * DEG_TO_RAD,  700.00, 2380.00,  -90.00 * DEG_TO_RAD,  90.00 * DEG_TO_RAD, 0 },
-    { j2_step_pin, j2_dir_pin,  300 * DEG_TO_RAD,  710.00, 1909.00,  -45.00 * DEG_TO_RAD,  90.00 * DEG_TO_RAD, 0 },
-    { j3_step_pin, j3_dir_pin,  300 * DEG_TO_RAD, 2290.00,  650.00,  -45.00 * DEG_TO_RAD, 135.00 * DEG_TO_RAD, 0 },
-    { j4_step_pin, j4_dir_pin,  300 * DEG_TO_RAD,  740.00, 2260.00,  -90.00 * DEG_TO_RAD,  85.00 * DEG_TO_RAD, 0 },
-    { j5_step_pin, j5_dir_pin,  300 * DEG_TO_RAD,  730.00, 2340.00, -140.00 * DEG_TO_RAD,  15.00 * DEG_TO_RAD, 0 },
-    { j6_step_pin, j6_dir_pin,  300 * DEG_TO_RAD,  740.00, 2200.00,  -90.00 * DEG_TO_RAD,  60.00 * DEG_TO_RAD, 0 }
+#define j2_step_pin 1
+#define j2_dir_pin 1
+#define j2_encA_pin 1
+#define j2_encB_pin 1
+#define j2_hs_pin A1
+
+#define j3_step_pin 1
+#define j3_dir_pin 1
+#define j3_encA_pin 1
+#define j3_encB_pin 1
+#define j3_hs_pin A1
+
+#define j4_step_pin 1
+#define j4_dir_pin 1
+#define j4_encA_pin 1
+#define j4_encB_pin 1
+#define j4_hs_pin A1
+
+#define j5_step_pin 1
+#define j5_dir_pin 1
+#define j5_encA_pin 1
+#define j5_encB_pin 1
+#define j5_hs_pin A1
+
+#define j6_step_pin 1
+#define j6_dir_pin 1
+#define j6_encA_pin 1
+#define j6_encB_pin 1
+#define j6_hs_pin A1
+
+// step motor step pin, step motor dir pin, hall sensor pin, maxAngularVel degree/sec, encoder a pin, encoder b pin, angleDegMin, angleDegMax, home position
+const float servoConfig[6][9] = {
+    { j1_step_pin, j1_dir_pin, j1_hs_pin, 300 * DEG_TO_RAD,  j1_encA_pin, j1_encB_pin,  -90.00 * DEG_TO_RAD,  90.00 * DEG_TO_RAD, 0 },
+    { j2_step_pin, j2_dir_pin, j2_hs_pin, 300 * DEG_TO_RAD,  j2_encA_pin, j2_encB_pin,  -45.00 * DEG_TO_RAD,  90.00 * DEG_TO_RAD, 0 },
+    { j3_step_pin, j3_dir_pin, j3_hs_pin, 300 * DEG_TO_RAD,  j3_encA_pin, j3_encB_pin,  -45.00 * DEG_TO_RAD, 135.00 * DEG_TO_RAD, 0 },
+    { j4_step_pin, j4_dir_pin, j4_hs_pin, 300 * DEG_TO_RAD,  j4_encA_pin, j4_encB_pin,  -90.00 * DEG_TO_RAD,  85.00 * DEG_TO_RAD, 0 },
+    { j5_step_pin, j5_dir_pin, j5_hs_pin, 300 * DEG_TO_RAD,  j5_encA_pin, j5_encB_pin, -140.00 * DEG_TO_RAD,  15.00 * DEG_TO_RAD, 0 },
+    { j6_step_pin, j6_dir_pin, j6_hs_pin, 300 * DEG_TO_RAD,  j6_encA_pin, j6_encB_pin,  -90.00 * DEG_TO_RAD,  60.00 * DEG_TO_RAD, 0 }
 };
 
 // mor mp-robot-a/mp-robot-kit
@@ -34,18 +57,18 @@ float geometry[5][3] = {
 
 // E.g. joint 0 cant be < 90° to not crash into itself
 float logicAngleLimits[6][2] = {
-    { servoConfig[0][5],
-      servoConfig[0][6] },
-    { servoConfig[1][5],
-      servoConfig[1][6] },
-    { servoConfig[2][5],
-      servoConfig[2][6] },
-    { servoConfig[3][5],
-      servoConfig[3][6] },
-    { servoConfig[4][5],
-      servoConfig[4][6] },
-    { servoConfig[5][5],
-      servoConfig[5][6] }
+    { servoConfig[0][6],
+      servoConfig[0][7] },
+    { servoConfig[1][6],
+      servoConfig[1][7] },
+    { servoConfig[2][6],
+      servoConfig[2][7] },
+    { servoConfig[3][6],
+      servoConfig[3][7] },
+    { servoConfig[4][6],
+      servoConfig[4][7] },
+    { servoConfig[5][6],
+      servoConfig[5][7] }
 };
 
 // relation between physical and logical angles based on robot kinematic coupling.

@@ -6,32 +6,35 @@
 #endif // ifndef MOCK_VIRTUAL
 
 #include <Arduino.h>
-#include <Servo.h>
-
+#include <AccelStepper.h>
+#include <Encoder.h>
 
 #define DELTA_T 15 // go at 66hz to best match the servo freq
 
 class VarSpeedServo {
 public:
 
-    VarSpeedServo(int          pinNumber,
+    VarSpeedServo(
+            int          step,
+            int          dir,
+            int          hs,
             float        maxAngleVelocity,
-            unsigned int minFreq,
-            unsigned int maxFreq,
+            int          encA,
+            int          encB,
             float        minRadAngle,
             float        maxRadAngle,
+            AccelStepper & _AccelStepper,
+            Encoder      & _Encoder,
             float        homeRadAngle = 0);
 
-    MOCK_VIRTUAL int          getPinNumber();
+    MOCK_VIRTUAL int          getStep();
+    MOCK_VIRTUAL int          getDir();
+    MOCK_VIRTUAL int          getHS();
 
     MOCK_VIRTUAL void         setAngleLimits(float minRadAngle,
                                              float maxRadAngle);
     MOCK_VIRTUAL float        getMinRadAngle();
     MOCK_VIRTUAL float        getMaxRadAngle();
-
-    MOCK_VIRTUAL void         setCalibrationFreq(unsigned int minFreq,
-                                                 unsigned int maxFreq);
-
     MOCK_VIRTUAL float        getCurrentAngle();
 
     MOCK_VIRTUAL void         setTargetRadAngle(float angleRad);
@@ -40,10 +43,8 @@ public:
     MOCK_VIRTUAL void         setCurrentAngleVelocity(float angleRadVelocity);
     MOCK_VIRTUAL float        getCurrentAngleVelocity();
 
-    MOCK_VIRTUAL unsigned int getMinFreq();
-    MOCK_VIRTUAL unsigned int getMaxFreq();
-
-    MOCK_VIRTUAL void         setFreqency(long microseconds);
+    MOCK_VIRTUAL int          getEncA();
+    MOCK_VIRTUAL int          getEncB();
 
     MOCK_VIRTUAL float        getMaxAngleVelocity();
 
@@ -59,12 +60,14 @@ private:
 
     bool virtualServo = false;
 
-    int pinNumber;
+    int step;
+    int dir;
+    int hs;
 
     float homeAngle;
 
-    unsigned int minFreq;
-    unsigned int maxFreq;
+    int encA;
+    int encB;
 
     unsigned long elapsedTime = 0;
 
@@ -82,7 +85,8 @@ private:
 
     bool outOfRange = false;
 
-    Servo servo;
+    AccelStepper &_AccelStepper;
+    Encoder &_Encoder;
 
     unsigned int move();
 

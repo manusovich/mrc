@@ -8,6 +8,7 @@ public:
     }
 
     float getCurrentAngle(unsigned int index) {
+        return 0;
     }
 
     void setVelocity(float velocity) {
