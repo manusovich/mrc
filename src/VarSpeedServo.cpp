@@ -142,10 +142,11 @@ void VarSpeedServo::setTargetRadAngle(float angleRad)
     this->startAngle = this->currentAngle;
     this->elapsedTime = 0;
     this->targetAngle = angleRad;
-    logger.info("XXX setTargetRadAngle "+ String(this->targetAngle));
+    logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") setTargetRadAngle "+ String(this->targetAngle));
     this->_AccelStepper.setSpeed(100);
     this->_AccelStepper.moveTo(this->_AccelStepper.currentPosition() + 10000);
-}
+    logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") setTargetRadAngle stepper passed");
+  }
 
 float VarSpeedServo::getTargetRadAngle()
 {
@@ -185,7 +186,7 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
 
     float deltaAngle = this->currentAngleVelocity * this->elapsedTime / 1000.0;
 
-    logger.info("XXX process.deltaAngle "+String(deltaAngle));
+    logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") process.deltaAngle "+String(deltaAngle));
       // Serial.println(deltaAngle);
 
     if (fabs(deltaAngle) > fabs(this->targetAngle - this->startAngle))
@@ -213,13 +214,13 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
 bool VarSpeedServo::atTargetAngle()
 {
     bool atTargetAngle = fabs(this->currentAngle - this->targetAngle) < 0.000001;
-    logger.info("XXX atTargetAngle "+String(atTargetAngle));
+    logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") atTargetAngle "+String(atTargetAngle));
     return atTargetAngle;
 }
 
 unsigned int VarSpeedServo::move()
 {
-    logger.info("XXX move");
+    logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") move");
     
         // unsigned int freq = int(
         // this->map_float(this->currentAngle, this->minRadAngle, this->maxRadAngle, this->minFreq, this->maxFreq));
