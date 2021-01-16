@@ -221,7 +221,7 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
 bool VarSpeedServo::atTargetAngle()
 {
     bool atTargetAngle = fabs(this->currentAngle - this->targetAngle) < 0.000001;
-    logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") atTargetAngle "+String(atTargetAngle));
+    //logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") atTargetAngle "+String(atTargetAngle));
     return atTargetAngle;
 }
 
@@ -234,7 +234,7 @@ unsigned int VarSpeedServo::move()
     // if (!this->virtualServo) this->servo.writeMicroseconds(freq);
     
     //if (!this->_AccelStepper.isRunning()) {
-        //logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") move");
+        logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") move");
         this->_AccelStepper.run();
         //logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") move recorded");
     //}
