@@ -155,7 +155,7 @@ void setup()
     RoboCon->setMaxVelocity(10);
 
     // init Timer and register callback
-    Timer1.initialize(updateServosEveryMs * 1000); // 20ms
+    Timer1.initialize( updateServosEveryMs * 100000 ); // 20ms
     Timer1.attachInterrupt(updateServos);
 
     pinMode(pin_internal_led, OUTPUT);
