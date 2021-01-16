@@ -229,11 +229,11 @@ unsigned int VarSpeedServo::move()
 
     // if (!this->virtualServo) this->servo.writeMicroseconds(freq);
     
-    if (!this->_AccelStepper.isRunning()) {
+    //if (!this->_AccelStepper.isRunning()) {
         logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") move");
         this->_AccelStepper.runSpeed();
         logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") move recorded");
-    }
+    //}
     return 0;
 }
 
