@@ -154,9 +154,10 @@ void setup()
     RoboCon->setMovementMethod(RobotController::MOVEMENT_METHODS::LINEAR);
     RoboCon->setMaxVelocity(10);
 
+
     // init Timer and register callback
-    Timer1.initialize( updateServosEveryMs ); // 20ms
-    Timer1.attachInterrupt(updateServos);
+    //Timer1.initialize( updateServosEveryMs ); // 20ms
+    //Timer1.attachInterrupt(updateServos);
 
     pinMode(pin_internal_led, OUTPUT);
     // pinMode(pin_servo_update_status_led, OUTPUT);
@@ -198,7 +199,7 @@ void loop()
     RoboCon->process(); // should be part of ISR, but then the display is not working propery. I2C also requires an interrupt
 
     // // status led
-    digitalWrite(pin_internal_led, HIGH);
+    //digitalWrite(pin_internal_led, HIGH);
     // if (displayCounter++ >= 20000) {
     //     renderDisplay(); // takes ~50 ms
     // displayCounter = 0;
@@ -212,6 +213,8 @@ void loop()
     Mrilparser->process();
     Mrcpparser->process();
 
+    updateServos();
+
     // for (size_t i = 0; i < 8; i++) {
     //      if (servos[i]->getOutOfRange()) {
     //         logger.warning("out of frequency range. servo i: " + String(i) + " minAngle: "  + String(
@@ -221,7 +224,7 @@ void loop()
     //     }
     //}
 
-    digitalWrite(pin_internal_led, LOW);
+    // digitalWrite(pin_internal_led, LOW);
 }
 
 // void renderDisplay() {
