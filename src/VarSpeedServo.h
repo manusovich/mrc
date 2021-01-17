@@ -95,6 +95,7 @@ private:
     float motor_encoder_ratio = encoder_2pi / steps_2pi;
 
     unsigned long lastUpdate;
+    unsigned long lastCurrPosPrint = 0;
 
     float minRadAngle;
     float maxRadAngle;
