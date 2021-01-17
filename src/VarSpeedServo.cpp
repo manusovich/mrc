@@ -199,21 +199,21 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
         // Calibration mode
 
         // int hallSensorValue = map(analogRead(hs), 0, 1023, 0, 255);
-        int hs;
+        int hsv;
         // if (hallSensorValue > 128) {
-        if (digitalRead(hs) == HIGH) {
-            hs = 0;
+        if (digitalRead(this->hs) == LOW) {
+            hsv = 0;
         } else {
-            hs = 1;
+            hsv = 1;
         }
 
-        if (this->calibrationMode == 1 && hs == 1) {
+        if (this->calibrationMode == 1 && hsv == 1) {
             logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - HS");
             this->calibrationMode = 2;
             this->_AccelStepper.moveTo(this->_AccelStepper.currentPosition() + 1000);
             this->_AccelStepper.setSpeed(1000);
         }
-        if (this->calibrationMode == 3 && hs == 1) {
+        if (this->calibrationMode == 3 && hsv == 1) {
             logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - HS. At home");
             this->calibrationMode = 4;
             this->_AccelStepper.stop();
