@@ -96,7 +96,7 @@ private:
 
     bool outOfRange = false;
 
-    AccelStepper &_AccelStepper;
+    AccelStepperEncoder &_AccelStepper;
     Encoder &_Encoder;
 
     unsigned int move();
