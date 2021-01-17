@@ -286,6 +286,7 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
 bool VarSpeedServo::atTargetAngle()
 {
     bool atTargetAngle = fabs(this->currentAngle - this->targetAngle) < 0.001;
+    atTargetAngle = this->_AccelStepper.distanceToGo() == 0;
 
     if (this->step == 0 && atTargetAngle) {
          this->_AccelStepper.correctDeviation();
