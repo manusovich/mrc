@@ -380,7 +380,7 @@ void RobotController::process() {
         for (unsigned int i = 0; i < 6; i++) {
             if (!this->Servos[i]->atTargetAngle()) {
                 atTargetAngle = false;
-                // logger.info("not at Target angle" + String(i));
+                logger.info("not at Target angle" + String(i));
             }
         }
 
