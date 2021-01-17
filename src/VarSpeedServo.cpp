@@ -199,8 +199,8 @@ float VarSpeedServo::getMaxAngleVelocity()
 void VarSpeedServo::runCalibration() {
     this->calibrationMode = 1;
     logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - Calibration mode");
-    this->_AccelStepper.move(-100000);
-    this->_AccelStepper.setSpeed(-1500.0);
+    this->_AccelStepper.move(-100000 * this->direction);
+    this->_AccelStepper.setSpeed(-1500.0 * this->direction);
 }
 
 unsigned int VarSpeedServo::process(unsigned int deltaT)
@@ -220,8 +220,8 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
         if (this->calibrationMode == 1 && hsv == 1) {
             logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - HS");
             this->calibrationMode = 2;
-            this->_AccelStepper.move(1000);
-            this->_AccelStepper.setSpeed(1000);
+            this->_AccelStepper.move(1000 * this->direction);
+            this->_AccelStepper.setSpeed(1000 * this->direction);
         }
         if (this->calibrationMode == 3 && hsv == 1) {
             logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - HS. At home");
@@ -232,8 +232,8 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
             this->_AccelStepper.synchroniseMotorWithEncoder();    
             this->currentAngle = 0;
             this->targetAngle = 0;
-            this->_AccelStepper.move(this->revSteps / 2); 
-            this->_AccelStepper.setSpeed(1500);
+            this->_AccelStepper.move(this->revSteps / 2 * this->direction); 
+            this->_AccelStepper.setSpeed(1500 * this->direction);
             logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - Encoder and current angle reseted");
             this->calibrationMode = 4; 
         } 
@@ -241,8 +241,8 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
         if (this->_AccelStepper.distanceToGo() == 0) {
             if (this->calibrationMode == 2) {
                 logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - Slowly return back to home");
-                this->_AccelStepper.move(-1050);
-                this->_AccelStepper.setSpeed(-300.0);
+                this->_AccelStepper.move(-1050 * this->direction);
+                this->_AccelStepper.setSpeed(-300.0 * this->direction);
                 this->calibrationMode = 3;
             }
             if (this->calibrationMode == 4) {
