@@ -203,7 +203,7 @@ void VarSpeedServo::runCalibration() {
 
 unsigned int VarSpeedServo::process(unsigned int deltaT)
 {
-    if (this->calibrationMode > 0 && this->calibrationMode < 4) {
+    if (this->calibrationMode > 0 && this->calibrationMode < 5) {
         // Calibration mode
 
         // int hallSensorValue = map(analogRead(hs), 0, 1023, 0, 255);
@@ -230,15 +230,31 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
             this->_AccelStepper.synchroniseMotorWithEncoder();    
             this->currentAngle = 0;
             this->targetAngle = 0;
+            this->_AccelStepper.move(this->revSteps / 2); 
+            this->_AccelStepper.setSpeed(1000);
             logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - Encoder and current angle reseted");
+            this->calibrationMode = 4; 
         } 
         
         if (this->_AccelStepper.distanceToGo() == 0) {
             if (this->calibrationMode == 2) {
-            logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - Slowly return back to home");
-            this->_AccelStepper.move(-1050);
-            this->_AccelStepper.setSpeed(-300.0);
-            this->calibrationMode = 3;
+                logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - Slowly return back to home");
+                this->_AccelStepper.move(-1050);
+                this->_AccelStepper.setSpeed(-300.0);
+                this->calibrationMode = 3;
+            }
+            if (this->calibrationMode == 4) {
+                this->_AccelStepper.stop();
+                this->_AccelStepper.correctDeviation();
+                
+                this->_AccelStepper.writeEnc(0);
+                this->_AccelStepper.setCurrentPosition(0);
+                this->_AccelStepper.synchroniseMotorWithEncoder();    
+                
+                this->currentAngle = 0;
+                this->targetAngle = 0;
+                
+                logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - Encoder and current angle reseted. 0-Position");
             }
         }
 
@@ -247,7 +263,7 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
         }
     }
 
-    if (this->calibrationMode != 4) {
+    if (this->calibrationMode != 5) {
         return 0; // not calibrated
     }
 

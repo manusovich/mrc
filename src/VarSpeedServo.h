@@ -81,7 +81,8 @@ private:
     1 - Calibration - Moving to home towards hall sensor
     2 - Calibration - Moving back  
     3 - Calibration - Moving to home slowly
-    4 - Calibrated
+    4 - Calibration - Moving to 0 position
+    5 - Calibrated
     */
     int calibrationMode = 0; 
 
