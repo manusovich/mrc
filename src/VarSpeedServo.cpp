@@ -25,8 +25,8 @@ VarSpeedServo::VarSpeedServo(
     Encoder & _Encoder,
     float homeRadAngle,
     int direction,
-    unsigned int revSteps,
-    unsigned int revPulses):
+    float revSteps,
+    float revPulses):
     _AccelStepper(_AccelStepper),
     _Encoder(_Encoder)
 {

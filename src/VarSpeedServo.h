@@ -27,8 +27,8 @@ public:
             Encoder      & _Encoder,
             float        homeRadAngle,
             int          direction,
-            unsigned int revSteps,
-            unsigned int revPulses);
+            float revSteps,
+            float revPulses);
 
     MOCK_VIRTUAL int          getStep();
     MOCK_VIRTUAL int          getDir();
