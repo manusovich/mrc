@@ -56,6 +56,8 @@ public:
 
     MOCK_VIRTUAL unsigned int process(unsigned int deltaT = DELTA_T);
 
+    MOCK_VIRTUAL unsigned int getCurrentEncPos();
+
     MOCK_VIRTUAL float        getHomeRadAngle();
 
 private:
