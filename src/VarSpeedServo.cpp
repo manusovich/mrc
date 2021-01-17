@@ -218,6 +218,7 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
             this->_AccelStepper.writeEnc(0);
             this->_AccelStepper.setCurrentPosition(0);
             this->_AccelStepper.synchroniseMotorWithEncoder();    
+            this->_AccelStepper.setPinsInverted(true, false, false);
             this->currentAngle = 0;
             logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - Encoder and current angle reseted");
         } 
