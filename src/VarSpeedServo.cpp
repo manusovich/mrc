@@ -238,7 +238,7 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
     }
 
     if (this->calibrationMode != 4) {
-        return; // not calibrated
+        return 0; // not calibrated
     }
 
     // v = s/t
