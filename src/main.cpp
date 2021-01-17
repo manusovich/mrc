@@ -92,7 +92,8 @@ void setup()
 
         enc = new Encoder(servoConfig[i][4], servoConfig[i][5]);
         as = new AccelStepperEncoder(AccelStepperEncoder::FULL2WIRE, servoConfig[i][0], servoConfig[i][1]);
-        // as->setPinsInverted(true, false, false);
+        as->setPinsInverted(true, false, false);
+        as->setMaxSpeed(1000);
         as->addEncoder(enc, 0.78128051877);
 
         pinMode(servoConfig[i][2], INPUT_PULLUP);
@@ -108,7 +109,9 @@ void setup()
             servoConfig[i][7],
             *as,
             *enc,
-            servoConfig[i][8]);
+            servoConfig[i][8],
+            servoConfig[i][9]);
+
         servos[i]->setTargetRadAngle(0);
     }
 

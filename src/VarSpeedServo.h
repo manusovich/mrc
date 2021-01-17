@@ -25,7 +25,8 @@ public:
             float        maxRadAngle,
             AccelStepperEncoder & _AccelStepper,
             Encoder      & _Encoder,
-            float        homeRadAngle = 0);
+            float        homeRadAngle,
+            int          direction);
 
     MOCK_VIRTUAL int          getStep();
     MOCK_VIRTUAL int          getDir();
@@ -81,6 +82,8 @@ private:
     4 - Calibrated
     */
     int calibrationMode = 0; 
+
+    int direction; 
 
     unsigned long elapsedTime = 0;
 

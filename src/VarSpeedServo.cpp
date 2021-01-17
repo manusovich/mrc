@@ -23,7 +23,8 @@ VarSpeedServo::VarSpeedServo(
     float maxRadAngle,
     AccelStepperEncoder & _AccelStepper,
     Encoder & _Encoder,
-    float homeRadAngle):
+    float homeRadAngle,
+    int direction):
     _AccelStepper(_AccelStepper),
     _Encoder(_Encoder)
 {
@@ -39,6 +40,7 @@ VarSpeedServo::VarSpeedServo(
 
     this->_AccelStepper = _AccelStepper;
     this->_Encoder = _Encoder;
+    this->direction = direction;
 
     if (minRadAngle > maxRadAngle)
     {
@@ -152,7 +154,7 @@ void VarSpeedServo::setTargetRadAngle(float angleRad)
     logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") setTargetRadAngle "+ String(this->targetAngle) + ", setTargetEncPosition=" + String(this->targetEncPosition)+", setTargetMotorSteps=" + String(this->targetSteps));
     
     this->_AccelStepper.moveTo(this->targetSteps);
-    this->_AccelStepper.setAcceleration(5000);
+    this->_AccelStepper.setAcceleration(1000);
   }
 
 float VarSpeedServo::getTargetRadAngle()
@@ -189,8 +191,8 @@ float VarSpeedServo::getMaxAngleVelocity()
 void VarSpeedServo::runCalibration() {
     this->calibrationMode = 1;
     logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - Calibration mode");
-    this->_AccelStepper.setMaxSpeed(1500.0);
-    this->_AccelStepper.setSpeed(-1000.0);
+    this->_AccelStepper.move(-100000 * this->direction);
+    this->_AccelStepper.setSpeed(1000.0);
 }
 
 unsigned int VarSpeedServo::process(unsigned int deltaT)
@@ -210,7 +212,7 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
         if (this->calibrationMode == 1 && hsv == 1) {
             logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - HS");
             this->calibrationMode = 2;
-            this->_AccelStepper.moveTo(this->_AccelStepper.currentPosition() + 1000);
+            this->_AccelStepper.move(1000 * this->direction);
             this->_AccelStepper.setSpeed(1000);
         }
         if (this->calibrationMode == 3 && hsv == 1) {
@@ -228,7 +230,8 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
         if (this->_AccelStepper.distanceToGo() == 0) {
             if (this->calibrationMode == 2) {
             logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - Slowly return back to home");
-            this->_AccelStepper.setSpeed(-300.0);
+            this->_AccelStepper.move(-1100 * this->direction);
+            this->_AccelStepper.setSpeed(300.0);
             this->calibrationMode = 3;
             }
         }
