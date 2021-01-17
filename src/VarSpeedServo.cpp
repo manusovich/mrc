@@ -185,8 +185,54 @@ float VarSpeedServo::getMaxAngleVelocity()
     return this->maxAngleVelocity;
 }
 
+void VarSpeedServo::runCalibration() {
+    this->calibrationMode = 1;
+}
+
 unsigned int VarSpeedServo::process(unsigned int deltaT)
 {
+    if (this->calibrationMode > 0 && this->calibrationMode < 4) {
+        // Calibration mode
+
+        int hallSensorValue = map(analogRead(hs), 0, 1023, 0, 255);
+        int hs;
+        if (hallSensorValue > 128) {
+            hs = 0;
+        } else {
+            hs = 1;
+        }
+
+        if (this->calibrationMode == 1 && hs == 1) {
+            logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - HS");
+            this->calibrationMode = 2;
+            this->_AccelStepper.moveTo(this->_AccelStepper.currentPosition() - 1000);
+        }
+        if (this->calibrationMode == 3 && hs == 1) {
+            logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - HS. At home");
+            this->calibrationMode = 4;
+            this->_AccelStepper.stop();
+        } 
+        
+        if (this->_AccelStepper.distanceToGo() == 0) {
+            if (this->calibrationMode == 2) {
+            logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - Slowly return back to home");
+            this->_AccelStepper.setSpeed(100.0);
+            this->calibrationMode = 3;
+            }
+        }
+
+        if (this->calibrationMode == 1 || this->calibrationMode == 2) {
+            this->_AccelStepper.run();
+        }
+        if (this->calibrationMode == 3) {
+            this->_AccelStepper.runSpeed();
+        }
+    }
+
+    if (this->calibrationMode != 4) {
+        return; // not calibrated
+    }
+
     // v = s/t
     this->elapsedTime += deltaT;
 

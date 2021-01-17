@@ -51,6 +51,8 @@ public:
     MOCK_VIRTUAL void  getCurrentPose(float currentPose[6]);
     MOCK_VIRTUAL float getCurrentPose(POSITION position);
 
+    MOCK_VIRTUAL void runCalibration(); 
+
     MOCK_VIRTUAL void setTargetPose(float x,
            float y,
            float z,

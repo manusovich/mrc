@@ -37,6 +37,8 @@ public:
     MOCK_VIRTUAL float        getMaxRadAngle();
     MOCK_VIRTUAL float        getCurrentAngle();
 
+    MOCK_VIRTUAL void         runCalibration();
+
     MOCK_VIRTUAL void         setTargetRadAngle(float angleRad);
     MOCK_VIRTUAL float        getTargetRadAngle();
 
@@ -68,6 +70,15 @@ private:
 
     int encA;
     int encB;
+
+    /*
+    0 - Not calibrated
+    1 - Calibration - Moving to home towards hall sensor
+    2 - Calibration - Moving back  
+    3 - Calibration - Moving to home slowly
+    4 - Calibrated
+    */
+    int calibrationMode = 0; 
 
     unsigned long elapsedTime = 0;
 

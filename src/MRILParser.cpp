@@ -298,6 +298,7 @@ void MRILParser::parse(char mrilInstruction[], unsigned int length) {
 
             case MRIL_COMMAND_HOME:
                 _logger.warning("Home Command");
+                this->_RobotController.runCalibration();
                 break;
 
             case MRIL_COMMAND_HALT:
