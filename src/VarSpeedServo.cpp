@@ -189,7 +189,7 @@ void VarSpeedServo::runCalibration() {
     logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - Calibration mode");
     this->_AccelStepper.setMaxSpeed(3000.0);
     this->_AccelStepper.setAcceleration(3000.0);
-    this->_AccelStepper.moveTo(200000); 
+    this->_AccelStepper.moveTo(-200000); // Go home
 }
 
 unsigned int VarSpeedServo::process(unsigned int deltaT)
@@ -208,7 +208,7 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
         if (this->calibrationMode == 1 && hs == 1) {
             logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - HS");
             this->calibrationMode = 2;
-            this->_AccelStepper.moveTo(this->_AccelStepper.currentPosition() - 1000);
+            this->_AccelStepper.moveTo(this->_AccelStepper.currentPosition() + 1000);
         }
         if (this->calibrationMode == 3 && hs == 1) {
             logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - HS. At home");
@@ -217,7 +217,6 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
             this->_AccelStepper.writeEnc(0);
             this->_AccelStepper.setCurrentPosition(0);
             this->_AccelStepper.synchroniseMotorWithEncoder();    
-            this->_AccelStepper.setPinsInverted(true, false, false);
             this->currentAngle = 0;
             logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - Encoder and current angle reseted");
         } 
@@ -226,6 +225,7 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
             if (this->calibrationMode == 2) {
             logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - Slowly return back to home");
             this->_AccelStepper.setSpeed(200.0);
+            this->_AccelStepper.moveTo(this->_AccelStepper.currentPosition() - 2000);
             this->calibrationMode = 3;
             }
         }
