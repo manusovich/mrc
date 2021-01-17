@@ -38,7 +38,7 @@
 
 // step motor step pin, step motor dir pin, hall sensor pin, maxAngularVel degree/sec, encoder a pin, encoder b pin, angleDegMin, angleDegMax, home position, direction
 const float servoConfig[6][10] = {
-    { j1_step_pin, j1_dir_pin, j1_hs_pin, 300 * DEG_TO_RAD,  j1_encA_pin, j1_encB_pin,  -90.00 * DEG_TO_RAD,  90.00 * DEG_TO_RAD, 0, -1},
+    { j1_step_pin, j1_dir_pin, j1_hs_pin, 300 * DEG_TO_RAD,  j1_encA_pin, j1_encB_pin,  -90.00 * DEG_TO_RAD,  90.00 * DEG_TO_RAD, 0, 1},
     { j2_step_pin, j2_dir_pin, j2_hs_pin, 300 * DEG_TO_RAD,  j2_encA_pin, j2_encB_pin,  -45.00 * DEG_TO_RAD,  90.00 * DEG_TO_RAD, 0, 1},
     { j3_step_pin, j3_dir_pin, j3_hs_pin, 300 * DEG_TO_RAD,  j3_encA_pin, j3_encB_pin,  -45.00 * DEG_TO_RAD, 135.00 * DEG_TO_RAD, 0, 1},
     { j4_step_pin, j4_dir_pin, j4_hs_pin, 300 * DEG_TO_RAD,  j4_encA_pin, j4_encB_pin,  -90.00 * DEG_TO_RAD,  85.00 * DEG_TO_RAD, 0, 1},
