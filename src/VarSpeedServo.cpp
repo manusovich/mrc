@@ -289,6 +289,9 @@ bool VarSpeedServo::atTargetAngle()
 
     if (atTargetAngle) {
          this->_AccelStepper.correctDeviation();
+         logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") atTargetAngle. motor = "+String(this->_AccelStepper.currentPosition())+" encoder="
+            + String(this->_AccelStepper.readEnc()) + ". deviation=" + String(this->_AccelStepper.computeDeviation()));
+
     }
 
    // logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") atTargetAngle. diff = "+String(diff));
