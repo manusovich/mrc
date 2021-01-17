@@ -68,8 +68,7 @@ VarSpeedServo::VarSpeedServo(
     //     this->servo.attach(pinNumber);
     // }
 
-    this->runCalibration();
-    //this->move(); // drive to 0 position according to min max angle
+     //this->move(); // drive to 0 position according to min max angle
 }
 
 float VarSpeedServo::getHomeRadAngle()
@@ -190,8 +189,7 @@ float VarSpeedServo::getMaxAngleVelocity()
 void VarSpeedServo::runCalibration() {
     this->calibrationMode = 1;
     logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - Calibration mode");
-    this->_AccelStepper.setMaxSpeed(5000.0);
-    this->_AccelStepper.setAcceleration(3000.0);
+    this->_AccelStepper.setSpeed(1000.0);
     this->_AccelStepper.moveTo(-200000); // Go home
 }
 
@@ -233,10 +231,7 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
             }
         }
 
-        if (this->calibrationMode == 1 || this->calibrationMode == 2) {
-            this->_AccelStepper.run();
-        }
-        if (this->calibrationMode == 3) {
+        if (this->calibrationMode == 1 || this->calibrationMode == 2 || this->calibrationMode == 3) {
             this->_AccelStepper.runSpeed();
         }
     }
