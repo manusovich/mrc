@@ -394,8 +394,10 @@ void RobotController::process() {
 
             // std::cout << "-0=====================interpol====== "<<currentInterpolationStep<<" total: "<<totalInterpolationSteps << '\n';
             if (currentInterpolationStep == totalInterpolationSteps) {
+                logger.info("State changed to IDLE");
                 this->state = IDLE;
             } else {
+                logger.info("State changed to START_MOVE");
                 this->state = START_MOVE;
 
                 this->process();
@@ -452,6 +454,7 @@ void RobotController::process() {
             logger.error("Do not change pose and angles in one transaction!");
             this->targetAnglesChanged = false;
             this->targetPoseChanged   = false;
+            logger.info("State changed to IDLE");
             this->state               = IDLE;
             return;
         }
