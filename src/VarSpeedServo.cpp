@@ -224,7 +224,7 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
         if (this->_AccelStepper.distanceToGo() == 0) {
             if (this->calibrationMode == 2) {
             logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - Slowly return back to home");
-            this->_AccelStepper.setSpeed(200.0);
+            this->_AccelStepper.setSpeed(500.0);
             this->_AccelStepper.moveTo(this->_AccelStepper.currentPosition() - 2000);
             this->calibrationMode = 3;
             }
