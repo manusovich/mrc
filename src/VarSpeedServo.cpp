@@ -153,7 +153,7 @@ void VarSpeedServo::setTargetRadAngle(float angleRad)
 
     logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") setTargetRadAngle "+ String(this->targetAngle) + ", setTargetEncPosition=" + String(this->targetEncPosition)+", setTargetMotorSteps=" + String(this->targetSteps));
     
-    this->_AccelStepper.moveTo(this->targetSteps);
+    this->_AccelStepper.moveTo(2000);
     this->_AccelStepper.setAcceleration(1000);
   }
 
