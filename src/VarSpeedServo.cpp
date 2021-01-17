@@ -258,7 +258,7 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
             }
         }
 
-        if (this->calibrationMode == 1 || this->calibrationMode == 2 || this->calibrationMode == 3) {
+        if (this->calibrationMode > 0 && this->calibrationMode < 5) {
             this->_AccelStepper.runSpeed();
         }
     }
