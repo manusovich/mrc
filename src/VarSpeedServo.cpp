@@ -198,7 +198,7 @@ void VarSpeedServo::runCalibration() {
     this->calibrationMode = 1;
     logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - Calibration mode");
     this->_AccelStepper.move(-100000);
-    this->_AccelStepper.setSpeed(-1000.0);
+    this->_AccelStepper.setSpeed(-1500.0);
 }
 
 unsigned int VarSpeedServo::process(unsigned int deltaT)
@@ -231,7 +231,7 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
             this->currentAngle = 0;
             this->targetAngle = 0;
             this->_AccelStepper.move(this->revSteps / 2); 
-            this->_AccelStepper.setSpeed(1000);
+            this->_AccelStepper.setSpeed(1500);
             logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - Encoder and current angle reseted");
             this->calibrationMode = 4; 
         } 
@@ -255,6 +255,7 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
                 this->targetAngle = 0;
                 
                 logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - Encoder and current angle reseted. 0-Position");
+                calibrationMode = 5;
             }
         }
 
