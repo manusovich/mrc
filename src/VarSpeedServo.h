@@ -78,7 +78,7 @@ private:
     3 - Calibration - Moving to home slowly
     4 - Calibrated
     */
-    int calibrationMode = 4; 
+    int calibrationMode = 0; 
 
     unsigned long elapsedTime = 0;
 

@@ -68,7 +68,8 @@ VarSpeedServo::VarSpeedServo(
     //     this->servo.attach(pinNumber);
     // }
 
-    this->move(); // drive to 0 position according to min max angle
+    this->runCalibration();
+    //this->move(); // drive to 0 position according to min max angle
 }
 
 float VarSpeedServo::getHomeRadAngle()
@@ -218,6 +219,7 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
             this->_AccelStepper.setCurrentPosition(0);
             this->_AccelStepper.synchroniseMotorWithEncoder();    
             this->currentAngle = 0;
+            this->targetAngle = 0;
             logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - Encoder and current angle reseted");
         } 
         
@@ -242,33 +244,33 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
     }
 
     // v = s/t
-    this->elapsedTime += deltaT;
+    // this->elapsedTime += deltaT;
 
-    float deltaAngle = this->currentAngleVelocity * this->elapsedTime / 1000.0;
+    // float deltaAngle = this->currentAngleVelocity * this->elapsedTime / 1000.0;
 
-    // logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") process.deltaAngle "+String(deltaAngle));
-      // Serial.println(deltaAngle);
+    // // logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") process.deltaAngle "+String(deltaAngle));
+    //   // Serial.println(deltaAngle);
 
-    if (fabs(deltaAngle) > fabs(this->targetAngle - this->startAngle))
-    {
-        this->currentAngle = this->targetAngle;
+    // if (fabs(deltaAngle) > fabs(this->targetAngle - this->startAngle))
+    // {
+    //     this->currentAngle = this->targetAngle;
 
-        // set start to target to not move again on elapsed time. overflow ~50 days?
-        this->startAngle = this->targetAngle;
-    }
-    else
-    {
-        if (this->targetAngle > this->startAngle)
-        {
-            this->currentAngle = this->startAngle + deltaAngle;
-        }
-        else
-        {
-            this->currentAngle = this->startAngle - deltaAngle;
-        }
-    }
+    //     // set start to target to not move again on elapsed time. overflow ~50 days?
+    //     this->startAngle = this->targetAngle;
+    // }
+    // else
+    // {
+    //     if (this->targetAngle > this->startAngle)
+    //     {
+    //         this->currentAngle = this->startAngle + deltaAngle;
+    //     }
+    //     else
+    //     {
+    //         this->currentAngle = this->startAngle - deltaAngle;
+    //     }
+    // }
 
-    // logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") call move");
+    // // logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") call move");
     return this->move();
 }
 
