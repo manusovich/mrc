@@ -243,6 +243,8 @@ float AccelStepperEncoder::correctDeviation()
 	float deviation = computeDeviation();
 	if (abs(deviation) > acceptableDeviation)
 	{
+    Serial.print("CORRECTING DEVIATION! deviation" + String(deviation));
+
 #ifdef DEBUG
     Serial.print("CORRECTING DEVIATION!");
     Serial.println(deviation);

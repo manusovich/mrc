@@ -286,6 +286,11 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
 bool VarSpeedServo::atTargetAngle()
 {
     bool atTargetAngle = fabs(this->currentAngle - this->targetAngle) < 0.001;
+
+    if (atTargetAngle) {
+         this->_AccelStepper.correctDeviation();
+    }
+
    // logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") atTargetAngle. diff = "+String(diff));
     // atTargetAngle = this->_AccelStepper.distanceToGo() == 0;
     
@@ -297,7 +302,7 @@ bool VarSpeedServo::atTargetAngle()
     //if (this->step != 1 && atTargetAngle == 1) {
      //    logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") atTargetAngle. motor = "+String(this->_AccelStepper.currentPosition())+" encoder="
       //       + String(this->_AccelStepper.readEnc()) + ". deviation=" + String(this->_AccelStepper.computeDeviation()));
-         // this->_AccelStepper.correctDeviation();
+         
     //}
 
     return atTargetAngle;
