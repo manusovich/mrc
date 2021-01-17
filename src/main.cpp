@@ -110,7 +110,9 @@ void setup()
             *as,
             *enc,
             servoConfig[i][8],
-            servoConfig[i][9]);
+            servoConfig[i][9],
+            servoConfig[i][10],
+            servoConfig[i][11]);
 
         servos[i]->setTargetRadAngle(0);
     }
