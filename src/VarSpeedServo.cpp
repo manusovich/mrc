@@ -285,18 +285,15 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
 
 bool VarSpeedServo::atTargetAngle()
 {
+    float diff = fabs(this->currentAngle - this->targetAngle) * 600000;
     bool atTargetAngle = fabs(this->currentAngle - this->targetAngle) < 0.000001;
-    logger.info(this->currentAngle, 6);
-    logger.info(this->targetAngle, 6);
-    logger.info(fabs(this->currentAngle - this->targetAngle), 6);
-    logger.info(atTargetAngle);
-
+    logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") atTargetAngle. diff = "+String(diff));
     // atTargetAngle = this->_AccelStepper.distanceToGo() == 0;
     
-    if (this->step != 1 && lastCurrPosPrint % 1000000 == 0) {
-         logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") atTargetAngle. motor = "+String(this->_AccelStepper.currentPosition())+" encoder="
-             + String(this->_AccelStepper.readEnc()) + ". deviation=" + String(this->_AccelStepper.computeDeviation()));
-    }
+  //  if (this->step != 1 && lastCurrPosPrint % 1000000 == 0) {
+  //       logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") atTargetAngle. motor = "+String(this->_AccelStepper.currentPosition())+" encoder="
+  //           + String(this->_AccelStepper.readEnc()) + ". deviation=" + String(this->_AccelStepper.computeDeviation()));
+  //  }
 
     //if (this->step != 1 && atTargetAngle == 1) {
      //    logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") atTargetAngle. motor = "+String(this->_AccelStepper.currentPosition())+" encoder="
