@@ -387,7 +387,7 @@ void RobotController::process() {
         if (atTargetAngle) {
             // std::cout << "/* attargetangelell */" << '\n';
             logger.info("at Target angle j1=" + String(this->Servos[0]->getCurrentEncPos())
-                + "j2=" + String(this->Servos[1]->getCurrentEncPos()));
+                + " j2=" + String(this->Servos[1]->getCurrentEncPos()));
             
             // logger.info(currentInterpolationStep);
             // logger.info(totalInterpolationSteps);
