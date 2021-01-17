@@ -92,7 +92,11 @@ void setup()
 
         enc = new Encoder(servoConfig[i][4], servoConfig[i][5]);
         as = new AccelStepperEncoder(AccelStepperEncoder::FULL2WIRE, servoConfig[i][0], servoConfig[i][1]);
-        as->setPinsInverted(true, false, false);
+        
+        if (servoConfig[i][0] == 0) {
+            as->setPinsInverted(true, false, false);
+        }
+        
         as->setMaxSpeed(3000);
         as->addEncoder(enc, 0.78128051877);
 
