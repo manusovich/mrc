@@ -210,6 +210,7 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
             logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - HS");
             this->calibrationMode = 2;
             this->_AccelStepper.moveTo(this->_AccelStepper.currentPosition() + 1000);
+            this->_AccelStepper.setSpeed(1000);
         }
         if (this->calibrationMode == 3 && hs == 1) {
             logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - HS. At home");
