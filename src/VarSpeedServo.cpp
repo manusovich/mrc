@@ -192,7 +192,7 @@ void VarSpeedServo::runCalibration() {
     this->calibrationMode = 1;
     logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - Calibration mode");
     //this->_AccelStepper.move(-100000 * this->direction);
-    this->_AccelStepper.setSpeed(-100.0);
+    this->_AccelStepper.setSpeed(-1000.0);
 }
 
 unsigned int VarSpeedServo::process(unsigned int deltaT)
