@@ -201,7 +201,7 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
         // int hallSensorValue = map(analogRead(hs), 0, 1023, 0, 255);
         int hs;
         // if (hallSensorValue > 128) {
-        if (digitalRead(hs) == LOW) {
+        if (digitalRead(hs) == HIGH) {
             hs = 0;
         } else {
             hs = 1;
