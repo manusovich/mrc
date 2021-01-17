@@ -147,13 +147,12 @@ void VarSpeedServo::setTargetRadAngle(float angleRad)
     this->startAngle = this->currentAngle;
     this->elapsedTime = 0;
     this->targetAngle = angleRad;
-    logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") setTargetRadAngle "+ String(this->targetAngle));
+    this->targetEncPosition = 28129 / 2 * PI * angleRad; 
+    this->targetSteps = this->targetEncPosition * motor_encoder_ratio;
+
+    logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") setTargetRadAngle "+ String(this->targetAngle) + ", setTargetEncPosition=" + String(this->targetEncPosition)+", setTargetMotorSteps=" + String(this->targetSteps));
     
-    if (this->_AccelStepper.currentPosition() < 1000) {
-        this->_AccelStepper.moveTo(2747 * 8);
-    } else {
-       this->_AccelStepper.moveTo(0);
-    }
+    this->_AccelStepper.moveTo(this->targetSteps);
     this->_AccelStepper.setAcceleration(5000);
   }
 
@@ -273,7 +272,10 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
     //     }
     // }
 
-    // // logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") call move");
+    
+    this-> currentAngle = 2 * PI / 28129 * this->_AccelStepper.readEnc();
+    logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") currAngle=" + String(this-> currentAngle));
+    
     return this->move();
 }
 
