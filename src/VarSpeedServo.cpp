@@ -155,7 +155,7 @@ void VarSpeedServo::setTargetRadAngle(float angleRad)
     this->elapsedTime = 0;
     this->targetAngle = angleRad;
     this->targetEncPosition = this->revPulses / (2 * PI) * angleRad; 
-    this->targetSteps = this->targetEncPosition * encoder_motor_ratio;
+    this->targetSteps = this->targetEncPosition * this->encoder_motor_ratio;
 
     logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") setTargetRadAngle "+ String(this->targetAngle) + ", setTargetEncPosition=" + String(this->targetEncPosition)+", setTargetMotorSteps=" + String(this->targetSteps));
     
