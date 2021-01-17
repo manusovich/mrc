@@ -314,7 +314,7 @@ void RobotController::runCalibration() {
         this->Servos[0]->runCalibration();
        // this->Servos[2]->runCalibration();
        // this->Servos[4]->runCalibration();
-        this->Servos[5]->runCalibration();
+        //this->Servos[5]->runCalibration();
 //    for (size_t i = 0; i < 1; i++) {
  //       this->Servos[i]->runCalibration();
  //   }
