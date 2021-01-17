@@ -87,11 +87,13 @@ void setup()
 
     for (size_t i = 0; i < 6; i++)
     {
-        AccelStepper *as = NULL;
+        AccelStepperEncoder *as = NULL;
         Encoder *enc = NULL;
 
-        as = new AccelStepper(AccelStepper::FULL2WIRE, servoConfig[i][0], servoConfig[i][1]);
         enc = new Encoder(servoConfig[i][4], servoConfig[i][5]);
+        as = new AccelStepperEncoder(AccelStepperEncoder::FULL2WIRE, servoConfig[i][0], servoConfig[i][1]);
+        as->addEncoder(enc, 5.12);
+
         servos[i] = new VarSpeedServo(
             servoConfig[i][0],
             servoConfig[i][1],

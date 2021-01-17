@@ -21,7 +21,7 @@ VarSpeedServo::VarSpeedServo(
     int encB,
     float minRadAngle,
     float maxRadAngle,
-    AccelStepper & _AccelStepper,
+    AccelStepperEncoder & _AccelStepper,
     Encoder & _Encoder,
     float homeRadAngle):
     _AccelStepper(_AccelStepper),
@@ -215,6 +215,10 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
             logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - HS. At home");
             this->calibrationMode = 4;
             this->_AccelStepper.stop();
+            this->_AccelStepper.writeEnc(0);
+            this->_AccelStepper.synchroniseMotorWithEncoder();    
+            this->currentAngle = 0;
+            logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - Encoder and current angle reseted");
         } 
         
         if (this->_AccelStepper.distanceToGo() == 0) {
@@ -271,8 +275,12 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
 bool VarSpeedServo::atTargetAngle()
 {
     bool atTargetAngle = fabs(this->currentAngle - this->targetAngle) < 0.000001;
-    atTargetAngle = !this->_AccelStepper.isRunning();
-    //logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") atTargetAngle "+String(atTargetAngle));
+    atTargetAngle = this->_AccelStepper.distanceToGo() == 0;
+    if(atTargetAngle == 1) {
+        logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") atTargetAngle. encoder="
+            + String(this->_AccelStepper.readEnc()) + ". deviation=" + String(this->_AccelStepper.computeDeviation()));
+    }
+
     return atTargetAngle;
 }
 

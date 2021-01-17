@@ -6,7 +6,7 @@
 #endif // ifndef MOCK_VIRTUAL
 
 #include <Arduino.h>
-#include <AccelStepper.h>
+#include <AccelStepperEncoder.h>
 #include <Encoder.h>
 
 #define DELTA_T 15 // go at 66hz to best match the servo freq
@@ -23,7 +23,7 @@ public:
             int          encB,
             float        minRadAngle,
             float        maxRadAngle,
-            AccelStepper & _AccelStepper,
+            AccelStepperEncoder & _AccelStepper,
             Encoder      & _Encoder,
             float        homeRadAngle = 0);
 
