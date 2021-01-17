@@ -134,8 +134,12 @@ float VarSpeedServo::getCurrentAngle()
         result = this->currentAngle;
     }
    
-    logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") getCurrentAngle "+String(result));
     return result;
+}
+
+unsigned int VarSpeedServo::getCurrentEncPos()
+{ 
+    return this->_AccelStepper.readEnc();
 }
 
 void VarSpeedServo::setTargetRadAngle(float angleRad)
@@ -151,7 +155,6 @@ void VarSpeedServo::setTargetRadAngle(float angleRad)
        this->_AccelStepper.moveTo(0);
     }
     this->_AccelStepper.setAcceleration(5000);
-    logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") setTargetRadAngle stepper current pos "+String(this->_AccelStepper.currentPosition()));
   }
 
 float VarSpeedServo::getTargetRadAngle()
