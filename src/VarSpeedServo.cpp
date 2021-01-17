@@ -144,13 +144,12 @@ void VarSpeedServo::setTargetRadAngle(float angleRad)
     this->targetAngle = angleRad;
     logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") setTargetRadAngle "+ String(this->targetAngle));
     
-    this->_AccelStepper.setSpeed(1000);
     if (this->_AccelStepper.currentPosition() < 1000) {
-        this->_AccelStepper.moveTo(100000);
+        this->_AccelStepper.moveTo(10000);
     } else {
        this->_AccelStepper.moveTo(-10000);
     }
-    this->_AccelStepper.setAcceleration(1000);
+    this->_AccelStepper.setAcceleration(5000);
     logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") setTargetRadAngle stepper current pos "+String(this->_AccelStepper.currentPosition()));
   }
 
@@ -281,6 +280,7 @@ bool VarSpeedServo::atTargetAngle()
     if(atTargetAngle == 1) {
         logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") atTargetAngle. encoder="
             + String(this->_AccelStepper.readEnc()) + ". deviation=" + String(this->_AccelStepper.computeDeviation()));
+        this->_AccelStepper.correctDeviation();
     }
 
     return atTargetAngle;
