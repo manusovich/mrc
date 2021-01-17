@@ -87,6 +87,12 @@ private:
     float startAngle = 0;
     volatile float currentAngle;
     float targetAngle = 0;
+    float targetEncPosition = 0;
+    float targetSteps = 0;
+    float steps_2pi = 2746.7128 * 8;
+    float encoder_2pi = 28129;
+    float encoder_motor_ratio = steps_2pi / encoder_2pi;
+    float motor_encoder_ratio = encoder_2pi / steps_2pi;
 
     unsigned long lastUpdate;
 
