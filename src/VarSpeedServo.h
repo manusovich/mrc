@@ -26,7 +26,9 @@ public:
             AccelStepperEncoder & _AccelStepper,
             Encoder      & _Encoder,
             float        homeRadAngle,
-            int          direction);
+            int          direction,
+            unsigned int revSteps,
+            unsigned int revPulses);
 
     MOCK_VIRTUAL int          getStep();
     MOCK_VIRTUAL int          getDir();
@@ -92,10 +94,10 @@ private:
     float targetAngle = 0;
     float targetEncPosition = 0;
     float targetSteps = 0;
-    float steps_2pi = 2746.7128 * 8;
-    float encoder_2pi = 28129;
-    float encoder_motor_ratio = steps_2pi / encoder_2pi;
-    float motor_encoder_ratio = encoder_2pi / steps_2pi;
+    float revSteps;
+    float revPulses;
+    float encoder_motor_ratio;
+    float motor_encoder_ratio;
 
     unsigned long lastUpdate;
     unsigned long lastCurrPosPrint = 0;

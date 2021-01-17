@@ -24,7 +24,9 @@ VarSpeedServo::VarSpeedServo(
     AccelStepperEncoder & _AccelStepper,
     Encoder & _Encoder,
     float homeRadAngle,
-    int direction):
+    int direction,
+    unsigned int revSteps,
+    unsigned int revPulses):
     _AccelStepper(_AccelStepper),
     _Encoder(_Encoder)
 {
@@ -41,6 +43,10 @@ VarSpeedServo::VarSpeedServo(
     this->_AccelStepper = _AccelStepper;
     this->_Encoder = _Encoder;
     this->direction = direction;
+    this->revSteps = revSteps;
+    this->revPulses = revPulses;
+    this->encoder_motor_ratio = revSteps / revPulses;
+    this->motor_encoder_ratio = revPulses / revSteps;
 
     if (minRadAngle > maxRadAngle)
     {
@@ -148,12 +154,12 @@ void VarSpeedServo::setTargetRadAngle(float angleRad)
     this->startAngle = this->currentAngle;
     this->elapsedTime = 0;
     this->targetAngle = angleRad;
-    this->targetEncPosition = 28129 / (2 * PI) * angleRad; 
+    this->targetEncPosition = this->revPulses / (2 * PI) * angleRad; 
     this->targetSteps = this->targetEncPosition * encoder_motor_ratio;
 
     logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") setTargetRadAngle "+ String(this->targetAngle) + ", setTargetEncPosition=" + String(this->targetEncPosition)+", setTargetMotorSteps=" + String(this->targetSteps));
     
-    this->_AccelStepper.moveTo(32000);
+    this->_AccelStepper.moveTo(this->targetSteps);
     this->_AccelStepper.setAcceleration(2000);
   }
 
@@ -273,7 +279,7 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
     // }
 
     
-    this-> currentAngle = 2 * PI / 28129 * this->_AccelStepper.readEnc();
+    this-> currentAngle = 2 * PI / this->revPulses * this->_AccelStepper.readEnc();
     
     if (this->step != 1 && lastCurrPosPrint % 1000000 == 0) {
         logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") currAngle=" + String(this-> currentAngle));
@@ -286,7 +292,7 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
 bool VarSpeedServo::atTargetAngle()
 {
     bool atTargetAngle = fabs(this->currentAngle - this->targetAngle) < 0.001;
-    atTargetAngle = this->_AccelStepper.distanceToGo() == 0;
+    // atTargetAngle = this->_AccelStepper.distanceToGo() == 0;
 
     if (this->step == 0 && atTargetAngle) {
          this->_AccelStepper.correctDeviation();
