@@ -187,6 +187,10 @@ float VarSpeedServo::getMaxAngleVelocity()
 
 void VarSpeedServo::runCalibration() {
     this->calibrationMode = 1;
+    logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - Calibration mode");
+    this->_AccelStepper.setMaxSpeed(3000.0);
+    this->_AccelStepper.setAcceleration(3000.0);
+    this->_AccelStepper.moveTo(200000); 
 }
 
 unsigned int VarSpeedServo::process(unsigned int deltaT)
