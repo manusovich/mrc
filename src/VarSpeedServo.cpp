@@ -276,11 +276,12 @@ bool VarSpeedServo::atTargetAngle()
 {
     bool atTargetAngle = fabs(this->currentAngle - this->targetAngle) < 0.000001;
     atTargetAngle = this->_AccelStepper.distanceToGo() == 0;
-    if(atTargetAngle == 1) {
-        logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") atTargetAngle. motor = "+String(this->_AccelStepper.currentPosition())+" encoder="
-            + String(this->_AccelStepper.readEnc()) + ". deviation=" + String(this->_AccelStepper.computeDeviation()));
-        this->_AccelStepper.correctDeviation();
-    }
+    
+    // if(atTargetAngle == 1) {
+    //     logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") atTargetAngle. motor = "+String(this->_AccelStepper.currentPosition())+" encoder="
+    //         + String(this->_AccelStepper.readEnc()) + ". deviation=" + String(this->_AccelStepper.computeDeviation()));
+    //     this->_AccelStepper.correctDeviation();
+    // }
 
     return atTargetAngle;
 }
