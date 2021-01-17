@@ -146,7 +146,7 @@ void VarSpeedServo::setTargetRadAngle(float angleRad)
     
     this->_AccelStepper.setSpeed(1000);
     if (this->_AccelStepper.currentPosition() < 1000) {
-        this->_AccelStepper.moveTo(10000);
+        this->_AccelStepper.moveTo(100000);
     } else {
        this->_AccelStepper.moveTo(-10000);
     }
