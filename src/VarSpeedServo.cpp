@@ -274,7 +274,7 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
 
     
     this-> currentAngle = 2 * PI / 28129 * this->_AccelStepper.readEnc();
-    if (lastCurrPosPrint % 1000 == 0) {
+    if (lastCurrPosPrint % 10000 == 0) {
         logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") currAngle=" + String(this-> currentAngle));
     }
     lastCurrPosPrint++;
