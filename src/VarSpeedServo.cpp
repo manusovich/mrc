@@ -212,7 +212,7 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
         if (this->calibrationMode == 1 && hsv == 1) {
             logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - HS");
             this->calibrationMode = 2;
-            this->_AccelStepper.move(1000 * this->direction);
+            this->_AccelStepper.move(1000);
             this->_AccelStepper.setSpeed(1000);
         }
         if (this->calibrationMode == 3 && hsv == 1) {
@@ -230,8 +230,8 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
         if (this->_AccelStepper.distanceToGo() == 0) {
             if (this->calibrationMode == 2) {
             logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - Slowly return back to home");
-            this->_AccelStepper.move(-1050 * this->direction);
-            this->_AccelStepper.setSpeed(300.0);
+            this->_AccelStepper.move(-1050);
+            this->_AccelStepper.setSpeed(-300.0);
             this->calibrationMode = 3;
             }
         }
