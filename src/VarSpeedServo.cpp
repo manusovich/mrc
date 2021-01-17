@@ -296,14 +296,13 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
     //         this->currentAngle = this->startAngle - deltaAngle;
     //     }
     // }
-
     
     this-> currentAngle = 2 * PI / this->revPulses * this->_AccelStepper.readEnc();
     
-    if (this->step != 1 && lastCurrPosPrint % 1000000 == 0) {
-        logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") currAngle=" + String(this-> currentAngle));
-    }
-    lastCurrPosPrint++;
+    // if (this->step != 1 && lastCurrPosPrint % 1000000 == 0) {
+    //     logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") currAngle=" + String(this-> currentAngle));
+    // }
+    // lastCurrPosPrint++;
     
     return this->move();
 }
