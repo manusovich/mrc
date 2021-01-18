@@ -212,7 +212,6 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
         int hsv = 0;
         if (hallSensorValue > 512) {
         /// if (digitalRead(this->hs) == HIGH) {
-            logger.info("XXX (" + String(this->hs) +") - HS. At HIGH "+ String(hallSensorValue));
             hsv = 1;
         } 
 
