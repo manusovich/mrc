@@ -238,11 +238,6 @@ void loop()
     //     }
     //}
 
-    int b = analogRead(A17);
-    if (b > 512) {
-        logger.info(b);
-    }
-    
     // digitalWrite(pin_internal_led, LOW);
 }
 
