@@ -234,8 +234,8 @@ void loop()
 
     updateServos();
 
-    int s = analogRead(38);
-    logger.info(s);
+    // int s = analogRead(38);
+    // logger.info(s);
 
     // for (size_t i = 0; i < 8; i++) {
     //      if (servos[i]->getOutOfRange()) {
