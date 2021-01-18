@@ -256,6 +256,12 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
                 this->_AccelStepper.move(8000 * this->direction); // 180deg
             }
 
+            if (this->step == 10) {
+                // j3
+                this->_AccelStepper.move(1000 * this->direction); // 180deg
+            }
+
+
             this->_AccelStepper.setAcceleration(2000);
             //this->_AccelStepper.setSpeed(1500 * this->direction);
             logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - Encoder and current angle reseted");
