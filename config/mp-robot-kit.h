@@ -14,8 +14,8 @@
 
 #define j3_step_pin 4
 #define j3_dir_pin 5
-#define j3_encA_pin 18
-#define j3_encB_pin 19
+#define j3_encA_pin 19
+#define j3_encB_pin 18
 #define j3_hs_pin 37
 
 #define j4_step_pin 6
