@@ -208,9 +208,9 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
     if (this->calibrationMode > 0 && this->calibrationMode < 5) {
         // Calibration mode
 
-        int hallSensorValue = map(analogRead(this->hs), 0, 1023, 0, 255);
+        int hallSensorValue = analogRead(this->hs);
         int hsv = 0;
-        if (hallSensorValue > 128) {
+        if (hallSensorValue > 512) {
         /// if (digitalRead(this->hs) == HIGH) {
             logger.info("XXX (" + String(this->hs) +") - HS. At HIGH "+ String(hallSensorValue));
             hsv = 1;
