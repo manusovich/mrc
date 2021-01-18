@@ -210,11 +210,18 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
 
         int hallSensorValue = analogRead(this->hs);
         int hsv = 0;
-        if (hallSensorValue > 512) {
-        /// if (digitalRead(this->hs) == HIGH) {
-            hsv = 1;
-        } 
 
+        if (this->step == 2) {
+           if (hallSensorValue < 512) {
+                hsv = 1;
+            } 
+        } else {
+            if (hallSensorValue > 512) {
+                hsv = 1;
+            } 
+        }
+
+   
         if (this->calibrationMode == 1 && hsv == 1) {
             logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - HS");
             this->calibrationMode = 2;
@@ -236,10 +243,10 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
                 this->_AccelStepper.move(this->revSteps / 2 * this->direction); // 180 deg 
             }
             
-            // if (this->step == 2) {
-            //     // j2
-            //     this->_AccelStepper.move(this->revSteps / 2); // 180deg 
-            // }
+            if (this->step == 2) {
+                // j2
+                this->_AccelStepper.move(10000 * this->direction); // 180deg 
+            }
 
             if (this->step == 4) {
                 // j3
