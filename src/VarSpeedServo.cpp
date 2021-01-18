@@ -233,7 +233,7 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
 
             if (this->step == 0) {
                 // j1
-                this->_AccelStepper.move(this->revSteps / 2); // 180 deg 
+                this->_AccelStepper.move(this->revSteps / 2 * this->direction); // 180 deg 
             }
             
             // if (this->step == 2) {
@@ -243,12 +243,12 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
 
             if (this->step == 4) {
                 // j3
-                this->_AccelStepper.move(this->revSteps / 8); // 45deg 
+                this->_AccelStepper.move(this->revSteps / 8 * this->direction); // 45deg 
             }
 
             if (this->step == 6) {
                 // j3
-                this->_AccelStepper.move(5000); // 180deg
+                this->_AccelStepper.move(5000 * this->direction); // 180deg
             }
 
             this->_AccelStepper.setSpeed(1500 * this->direction);
