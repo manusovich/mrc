@@ -238,6 +238,11 @@ void loop()
     //     }
     //}
 
+    int b = digitalRead(29);
+    if (b == HIGH) {
+        logger.info(b);
+    }
+
     // digitalWrite(pin_internal_led, LOW);
 }
 
