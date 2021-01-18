@@ -238,11 +238,9 @@ void loop()
     //     }
     //}
 
-    int b = analogRead(36);
-    if (b == HIGH) {
-        logger.info(b);
-    }
-
+    int b = analogRead(A17);
+    logger.info(b);
+    
     // digitalWrite(pin_internal_led, LOW);
 }
 
