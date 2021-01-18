@@ -97,6 +97,10 @@ void setup()
             as->setPinsInverted(true, false, false);
         }
 
+         if (servoConfig[i][0] == 6) {
+            as->setPinsInverted(true, false, false);
+        }
+
         as->setMaxSpeed(3000);
         as->addEncoder(enc, servoConfig[i][10] / servoConfig[i][11]);
 
