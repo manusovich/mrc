@@ -98,7 +98,12 @@ void setup()
         }
 
         as->setMaxSpeed(3000);
-        as->addEncoder(enc, servoConfig[i][10] / servoConfig[i][11]);
+
+        if (servoConfig[i][0] == 6) {
+            as->addEncoder(enc, - servoConfig[i][10] / servoConfig[i][11]);
+        } else {
+            as->addEncoder(enc, servoConfig[i][10] / servoConfig[i][11]);
+        }
 
         // pinMode(servoConfig[i][2], INPUT_PULLUP);
 
