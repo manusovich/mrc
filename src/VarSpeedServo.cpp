@@ -230,7 +230,22 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
             this->_AccelStepper.synchroniseMotorWithEncoder();    
             this->currentAngle = 0;
             this->targetAngle = 0;
-            this->_AccelStepper.move(this->revSteps / 2 * this->direction); 
+
+            if (this->step == 0) {
+                // j1
+                this->_AccelStepper.move(this->revSteps / 2); // 180 deg 
+            }
+            
+            if (this->step == 2) {
+                // j1
+                this->_AccelStepper.move(this->revSteps / 2); // 180deg 
+            }
+
+            if (this->step == 4) {
+                // j3
+                this->_AccelStepper.move(this->revSteps / 8); // 45deg 
+            }
+
             this->_AccelStepper.setSpeed(1500 * this->direction);
             logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - Encoder and current angle reseted");
             this->calibrationMode = 4; 
