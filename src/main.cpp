@@ -238,6 +238,9 @@ void loop()
     //     }
     //}
 
+    int b = digitalRead(29);
+    logger.info(b);
+
     // digitalWrite(pin_internal_led, LOW);
 }
 
