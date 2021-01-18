@@ -99,7 +99,7 @@ void setup()
 
         as->setMaxSpeed(3000);
 
-        if (servoConfig[i][0] == 6 || servoConfig[i][0] == 8) {
+        if (servoConfig[i][0] == 6 || servoConfig[i][0] == 8 || servoConfig[i][0] == 10) {
             as->addEncoder(enc, - servoConfig[i][10] / servoConfig[i][11]);
         } else {
             as->addEncoder(enc, servoConfig[i][10] / servoConfig[i][11]);
