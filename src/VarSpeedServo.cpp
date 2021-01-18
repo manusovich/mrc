@@ -245,7 +245,7 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
             
             if (this->step == 2) {
                 // j2
-                this->_AccelStepper.move(15000 * this->direction); // 180deg 
+                this->_AccelStepper.move(12000 * this->direction); // 180deg 
             }
 
             if (this->step == 4) {
