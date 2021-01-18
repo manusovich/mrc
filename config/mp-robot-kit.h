@@ -43,7 +43,7 @@ const float servoConfig[6][12] = {
     { j2_step_pin, j2_dir_pin, j2_hs_pin, 300 * DEG_TO_RAD,  j2_encA_pin, j2_encB_pin,  -45.00 * DEG_TO_RAD,  90.00 * DEG_TO_RAD, 0, 1, 1, 1},
     { j3_step_pin, j3_dir_pin, j3_hs_pin, 300 * DEG_TO_RAD,  j3_encA_pin, j3_encB_pin,  -45.00 * DEG_TO_RAD,  90.00 * DEG_TO_RAD, 0, 1, 80000, 102300},
     { j4_step_pin, j4_dir_pin, j4_hs_pin, 300 * DEG_TO_RAD,  j4_encA_pin, j4_encB_pin,  -90.00 * DEG_TO_RAD,  90.00 * DEG_TO_RAD, 0, -1, 43948 * 1.41, 56258 * 1.41},
-    { j5_step_pin, j5_dir_pin, j5_hs_pin, 300 * DEG_TO_RAD,  j5_encA_pin, j5_encB_pin, -140.00 * DEG_TO_RAD,  15.00 * DEG_TO_RAD, 0, -1, 10000, 12000},
+    { j5_step_pin, j5_dir_pin, j5_hs_pin, 300 * DEG_TO_RAD,  j5_encA_pin, j5_encB_pin, -140.00 * DEG_TO_RAD,  15.00 * DEG_TO_RAD, 0, -1, 5000, 3197},
     { j6_step_pin, j6_dir_pin, j6_hs_pin, 300 * DEG_TO_RAD,  j6_encA_pin, j6_encB_pin,  -90.00 * DEG_TO_RAD,  60.00 * DEG_TO_RAD, 0, 1, 1, 1}
 };
 
