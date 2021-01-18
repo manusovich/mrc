@@ -4,37 +4,37 @@
 #define j1_dir_pin 1
 #define j1_encA_pin 14
 #define j1_encB_pin 15
-#define j1_hs_pin 26
+#define j1_hs_pin 39
 
 #define j2_step_pin 2
 #define j2_dir_pin 3
 #define j2_encA_pin 16
 #define j2_encB_pin 17
-#define j2_hs_pin 27
+#define j2_hs_pin 38
 
 #define j3_step_pin 4
 #define j3_dir_pin 5
 #define j3_encA_pin 18
 #define j3_encB_pin 19
-#define j3_hs_pin 28
+#define j3_hs_pin 37
 
 #define j4_step_pin 6
 #define j4_dir_pin 7
 #define j4_encA_pin 20
 #define j4_encB_pin 21
-#define j4_hs_pin 29
+#define j4_hs_pin 36
 
 #define j5_step_pin 8
 #define j5_dir_pin 9
 #define j5_encA_pin 22
 #define j5_encB_pin 23
-#define j5_hs_pin 30
+#define j5_hs_pin 35
 
 #define j6_step_pin 10
 #define j6_dir_pin 11
 #define j6_encA_pin 24
 #define j6_encB_pin 25
-#define j6_hs_pin 31
+#define j6_hs_pin 34
 
 // step motor step pin, step motor dir pin, hall sensor pin, maxAngularVel degree/sec, encoder a pin, encoder b pin, 
 // angleDegMin, angleDegMax, home position, direction, revsteps, revpulses 

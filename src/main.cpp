@@ -100,7 +100,7 @@ void setup()
         as->setMaxSpeed(3000);
         as->addEncoder(enc, 0.78128051877);
 
-        pinMode(servoConfig[i][2], INPUT_PULLUP);
+        // pinMode(servoConfig[i][2], INPUT_PULLUP);
 
         servos[i] = new VarSpeedServo(
             servoConfig[i][0],
@@ -238,7 +238,7 @@ void loop()
     //     }
     //}
 
-    int b = digitalRead(29);
+    int b = analogRead(36);
     if (b == HIGH) {
         logger.info(b);
     }
