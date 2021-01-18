@@ -96,11 +96,11 @@ void setup()
         if (servoConfig[i][0] == 0) {
             as->setPinsInverted(true, false, false);
         }
-
+        
         as->setMaxSpeed(3000);
         as->addEncoder(enc, 0.78128051877);
 
-        pinMode(servoConfig[i][2], INPUT);
+        pinMode(servoConfig[i][2], INPUT_PULLUP);
 
         servos[i] = new VarSpeedServo(
             servoConfig[i][0],
@@ -237,11 +237,6 @@ void loop()
     //                        String(servos[i]->getTargetRadAngle() / PI * 180));
     //     }
     //}
-
-    // int b = digitalRead(29);
-    // if (b == HIGH) {
-        // logger.info(b);
-    // }
 
     // digitalWrite(pin_internal_led, LOW);
 }
