@@ -333,7 +333,12 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
     //     }
     // }
     
-    this-> currentAngle = 2 * PI / this->revPulses * this->_AccelStepper.readEnc();
+    int mul = 1;
+    if (this->step == 2) {
+        // Reversed angle
+        mul = -1;
+    }
+    this-> currentAngle = 2 * PI / this->revPulses * this->_AccelStepper.readEnc() * mul;
     
     return this->move();
 }
