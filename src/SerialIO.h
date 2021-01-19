@@ -6,7 +6,7 @@
 #include "CommunicationInterface.h"
 
 #define READ_NUMBER_OF_BYTES_FROM_SERIAL_BEFORE_CONTINUE 30
-#define BAUD_RATE 9600
+#define BAUD_RATE 912600
 
 
 class SerialIO : public CommunicationInterface {
