@@ -347,12 +347,12 @@ bool VarSpeedServo::atTargetAngle()
 {
     bool atTargetAngle = fabs(this->currentAngle - this->targetAngle) < 0.001;
   
-    // lastCurrPosPrint++;
-    // if (this->step == 10 && lastCurrPosPrint % 500000 == 0) {
-    //      logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") currAngle=" + String(this-> currentAngle * 1000) + ", taegetAngle="+String(this-> targetAngle * 1000));
-    //      logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") atTargetAngle="+String(atTargetAngle)+". motor = "+String(this->_AccelStepper.currentPosition())+" encoder="
-    //         + String(this->_AccelStepper.readEnc()) + ". deviation=" + String(this->_AccelStepper.computeDeviation()));
-    // }
+    lastCurrPosPrint++;
+    if (atTargetAngle == 0 && lastCurrPosPrint % 500000 == 0) {
+         logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") currAngle=" + String(this-> currentAngle * 1000) + ", taegetAngle="+String(this-> targetAngle * 1000));
+         logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") atTargetAngle="+String(atTargetAngle)+". motor = "+String(this->_AccelStepper.currentPosition())+" encoder="
+            + String(this->_AccelStepper.readEnc()) + ". deviation=" + String(this->_AccelStepper.computeDeviation()));
+    }
 
     return atTargetAngle;
 }
