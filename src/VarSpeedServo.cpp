@@ -345,7 +345,7 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
 
 bool VarSpeedServo::atTargetAngle()
 {
-    bool atTargetAngle = fabs(this->currentAngle - this->targetAngle) < 0.001;
+    bool atTargetAngle = fabs(this->currentAngle - this->targetAngle) < 0.01;
   
     lastCurrPosPrint++;
     if (atTargetAngle == 0 && lastCurrPosPrint % 500000 == 0) {
