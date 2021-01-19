@@ -2,8 +2,8 @@
 
 #define j1_step_pin 0
 #define j1_dir_pin 1
-#define j1_encA_pin 14
-#define j1_encB_pin 15
+#define j1_encA_pin 15
+#define j1_encB_pin 14
 #define j1_hs_pin 39
 
 #define j2_step_pin 2

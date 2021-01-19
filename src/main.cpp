@@ -93,10 +93,6 @@ void setup()
         enc = new Encoder(servoConfig[i][4], servoConfig[i][5]);
         as = new AccelStepperEncoder(AccelStepperEncoder::FULL2WIRE, servoConfig[i][0], servoConfig[i][1]);
         
-        // if (servoConfig[i][0] == 0) {
-        //     as->setPinsInverted(true, false, false);
-        // }
-
         as->setMaxSpeed(3000);
 
         if (servoConfig[i][0] == 6 || servoConfig[i][0] == 8 || servoConfig[i][0] == 10) {
