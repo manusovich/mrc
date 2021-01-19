@@ -40,7 +40,7 @@
 // angleDegMin, angleDegMax, home position, calibration direction, moving direction, revsteps, revpulses 
 const float servoConfig[6][13] = {
     { j1_step_pin, j1_dir_pin, j1_hs_pin, 300 * DEG_TO_RAD,  j1_encA_pin, j1_encB_pin,  -90.00 * DEG_TO_RAD,  90.00 * DEG_TO_RAD, 0, -1, 1, 64000, 81914},
-    { j2_step_pin, j2_dir_pin, j2_hs_pin, 300 * DEG_TO_RAD,  j2_encA_pin, j2_encB_pin,  -45.00 * DEG_TO_RAD,  90.00 * DEG_TO_RAD, 0, -1, -1, 40000 * 1.3, 51200 * 1.3},
+    { j2_step_pin, j2_dir_pin, j2_hs_pin, 300 * DEG_TO_RAD,  j2_encA_pin, j2_encB_pin,  -45.00 * DEG_TO_RAD,  90.00 * DEG_TO_RAD, 0, -1, -1, 40000 * 2, 51200 * 2},
     { j3_step_pin, j3_dir_pin, j3_hs_pin, 300 * DEG_TO_RAD,  j3_encA_pin, j3_encB_pin,  -45.00 * DEG_TO_RAD,  90.00 * DEG_TO_RAD, 0, 1, 1, 80000, 102300},
     { j4_step_pin, j4_dir_pin, j4_hs_pin, 300 * DEG_TO_RAD,  j4_encA_pin, j4_encB_pin,  -90.00 * DEG_TO_RAD,  90.00 * DEG_TO_RAD, 0, -1, -1, 43948 * 1.41, 56258 * 1.41},
     { j5_step_pin, j5_dir_pin, j5_hs_pin, 300 * DEG_TO_RAD,  j5_encA_pin, j5_encB_pin, -140.00 * DEG_TO_RAD,  15.00 * DEG_TO_RAD, 0, -1, -1, 5000, 3197},
