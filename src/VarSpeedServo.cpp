@@ -334,7 +334,7 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
     // }
     
     int mul = 1;
-    if (this->step == 2) {
+    if (this->step == 2 || this->step == 4) {
         // Reversed angle
         mul = -1;
     }
