@@ -25,6 +25,7 @@ VarSpeedServo::VarSpeedServo(
     Encoder & _Encoder,
     float homeRadAngle,
     int direction,
+    int moveDirection,
     float revSteps,
     float revPulses):
     _AccelStepper(_AccelStepper),
@@ -154,7 +155,7 @@ void VarSpeedServo::setTargetRadAngle(float angleRad)
     this->startAngle = this->currentAngle;
     this->elapsedTime = 0;
     this->targetAngle = angleRad;
-    this->targetEncPosition = this->revPulses / (2 * PI) * angleRad * this->direction; 
+    this->targetEncPosition = this->revPulses / (2 * PI) * angleRad * this->moveDirection; 
     this->targetSteps = this->targetEncPosition * this->encoder_motor_ratio;
 
     logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") setTargetRadAngle "
@@ -221,7 +222,6 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
             } 
         }
 
-   
         if (this->calibrationMode == 1 && hsv == 1) {
             logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - HS");
             this->calibrationMode = 2;
@@ -232,15 +232,13 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
             logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - HS. At home");
             this->calibrationMode = 4;
             this->_AccelStepper.stop();
-            this->_AccelStepper.writeEnc(0);
             this->_AccelStepper.setCurrentPosition(0);
-            this->_AccelStepper.synchroniseMotorWithEncoder();    
             this->currentAngle = 0;
             this->targetAngle = 0;
 
             if (this->step == 0) {
                 // j1
-                this->_AccelStepper.move(this->revSteps / 2 * this->direction); // 180 deg 
+                this->_AccelStepper.move(32000 * this->direction); // 180 deg 
             }
             
             if (this->step == 2) {
@@ -268,9 +266,7 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
                 this->_AccelStepper.move(13650 * this->direction); // 180deg
             }
 
-
             this->_AccelStepper.setAcceleration(2000);
-            //this->_AccelStepper.setSpeed(1500 * this->direction);
             logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - Encoder and current angle reseted");
             this->calibrationMode = 4; 
         } 

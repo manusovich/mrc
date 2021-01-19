@@ -27,8 +27,9 @@ public:
             Encoder      & _Encoder,
             float        homeRadAngle,
             int          direction,
-            float revSteps,
-            float revPulses);
+            int          moveDirection,
+            float        revSteps,
+            float        revPulses);
 
     MOCK_VIRTUAL int          getStep();
     MOCK_VIRTUAL int          getDir();
@@ -87,6 +88,7 @@ private:
     int calibrationMode = 0; 
 
     int direction; 
+    int moveDirection; 
 
     unsigned long elapsedTime = 0;
 
