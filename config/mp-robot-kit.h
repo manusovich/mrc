@@ -8,8 +8,8 @@
 
 #define j2_step_pin 2
 #define j2_dir_pin 3
-#define j2_encA_pin 17
-#define j2_encB_pin 16
+#define j2_encA_pin 16
+#define j2_encB_pin 17
 #define j2_hs_pin 38
 
 #define j3_step_pin 4
@@ -74,11 +74,11 @@ float logicAngleLimits[6][2] = {
 
 // relation between physical and logical angles based on robot kinematic coupling.
 void logicalToPhysicalAngles(float angles[6]) {
-    angles[2] += angles[1];
+    //angles[2] += angles[1];
 }
 
 void physicalToLogicalAngles(float angles[6]) {
-    angles[2] -= angles[1];
+    //angles[2] -= angles[1];
 }
 
 // 4 axis
