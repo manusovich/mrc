@@ -52,12 +52,15 @@ VarSpeedServo::VarSpeedServo(
 
     if (minRadAngle > maxRadAngle)
     {
-        logger.error("minAngle must be smaller than maxAngle on servo " + String(step) + " initialization (min: " + String(minRadAngle / PI * 180) + " max: " + String(maxRadAngle / PI * 180) + ")");
+        logger.error("minAngle must be smaller than maxAngle on servo " 
+            + String(step) + " initialization (min: " + String(minRadAngle / PI * 180) 
+            + " max: " + String(maxRadAngle / PI * 180) + ")");
     }
 
     if (minRadAngle > maxRadAngle)
     {
-        logger.error("minRadAngle must be smaller than maxRadAngle. Servo pin number: " + String(step));
+        logger.error("minRadAngle must be smaller than maxRadAngle. Servo pin number: " 
+            + String(step));
     }
 
     this->startAngle = homeRadAngle;
@@ -72,13 +75,6 @@ VarSpeedServo::VarSpeedServo(
 
     if (this->step < 0)
         this->virtualServo = true;
-
-    // if (!this->virtualServo)
-    // {
-    //     this->servo.attach(pinNumber);
-    // }
-
-     //this->move(); // drive to 0 position according to min max angle
 }
 
 float VarSpeedServo::getHomeRadAngle()
@@ -115,7 +111,9 @@ void VarSpeedServo::setAngleLimits(float minRadAngle, float maxRadAngle)
 {
     if (minRadAngle > maxRadAngle)
     {
-        logger.error("minAngle must be smaller than maxAngle on servo_num: " + String(this->step) + " (min: " + String(minRadAngle / PI * 180) + " max: " + String(maxRadAngle / PI * 180) + ")");
+        logger.error("minAngle must be smaller than maxAngle on servo_num: " 
+            + String(this->step) + " (min: " + String(minRadAngle / PI * 180) + " max: " 
+            + String(maxRadAngle / PI * 180) + ")");
     }
     this->minRadAngle = minRadAngle;
     this->maxRadAngle = maxRadAngle;
@@ -337,11 +335,6 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
     
     this-> currentAngle = 2 * PI / this->revPulses * this->_AccelStepper.readEnc();
     
-    // if (this->step != 1 && lastCurrPosPrint % 1000000 == 0) {
-    //     logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") currAngle=" + String(this-> currentAngle));
-    // }
-    // lastCurrPosPrint++;
-    
     return this->move();
 }
 
@@ -350,44 +343,20 @@ bool VarSpeedServo::atTargetAngle()
     bool atTargetAngle = fabs(this->currentAngle - this->targetAngle) < 0.001;
     // atTargetAngle = this->_AccelStepper.distanceToGo() == 0;
 
-    lastCurrPosPrint++;
-    if (this->step == 0 && lastCurrPosPrint % 1000000 == 0) {
-         // this->_AccelStepper.correctDeviation();
-         logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") currAngle=" + String(this-> currentAngle) + ", taegetAngle="+String(this-> targetAngle));
-         logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") atTargetAngle. motor = "+String(this->_AccelStepper.currentPosition())+" encoder="
-            + String(this->_AccelStepper.readEnc()) + ". deviation=" + String(this->_AccelStepper.computeDeviation()));
-    }
-
-   // logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") atTargetAngle. diff = "+String(diff));
-    // atTargetAngle = this->_AccelStepper.distanceToGo() == 0;
-    
-  //  if (this->step != 1 && lastCurrPosPrint % 1000000 == 0) {
-  //       logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") atTargetAngle. motor = "+String(this->_AccelStepper.currentPosition())+" encoder="
-  //           + String(this->_AccelStepper.readEnc()) + ". deviation=" + String(this->_AccelStepper.computeDeviation()));
-  //  }
-
-    //if (this->step != 1 && atTargetAngle == 1) {
-     //    logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") atTargetAngle. motor = "+String(this->_AccelStepper.currentPosition())+" encoder="
-      //       + String(this->_AccelStepper.readEnc()) + ". deviation=" + String(this->_AccelStepper.computeDeviation()));
-         
-    //}
+    // lastCurrPosPrint++;
+    // if (this->step == 0 && lastCurrPosPrint % 1000000 == 0) {
+    //      // this->_AccelStepper.correctDeviation();
+    //      logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") currAngle=" + String(this-> currentAngle) + ", taegetAngle="+String(this-> targetAngle));
+    //      logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") atTargetAngle. motor = "+String(this->_AccelStepper.currentPosition())+" encoder="
+    //         + String(this->_AccelStepper.readEnc()) + ". deviation=" + String(this->_AccelStepper.computeDeviation()));
+    // }
 
     return atTargetAngle;
 }
 
 unsigned int VarSpeedServo::move()
 {
-    
-        // unsigned int freq = int(
-        // this->map_float(this->currentAngle, this->minRadAngle, this->maxRadAngle, this->minFreq, this->maxFreq));
-
-    // if (!this->virtualServo) this->servo.writeMicroseconds(freq);
-    
-    //if (!this->_AccelStepper.isRunning()) {
-        //logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") move");
-        this->_AccelStepper.run();
-        //logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") move recorded");
-    //}
+    this->_AccelStepper.run();
     return 0;
 }
 
