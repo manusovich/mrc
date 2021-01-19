@@ -44,6 +44,7 @@ VarSpeedServo::VarSpeedServo(
     this->_AccelStepper = _AccelStepper;
     this->_Encoder = _Encoder;
     this->direction = direction;
+    this->moveDirection = moveDirection;
     this->revSteps = revSteps;
     this->revPulses = revPulses;
     this->encoder_motor_ratio = revSteps / revPulses;
