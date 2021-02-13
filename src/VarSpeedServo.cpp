@@ -282,14 +282,19 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
 
                 logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") atTargetAngle. motor = "+String(this->_AccelStepper.currentPosition())+" encoder="
             + String(this->_AccelStepper.readEnc()) + ". deviation=" + String(this->_AccelStepper.computeDeviation()));  
-                this->_AccelStepper.writeEnc(0);
-                this->_AccelStepper.setCurrentPosition(0);
                 this->_AccelStepper.synchroniseMotorWithEncoder();    
                 
                 if (this->step == 2) {
-                    this->currentAngle = -1.57;
+                    float ep = this->revPulses / (2 * PI) * (-1.57) * this->moveDirection; 
+                    float sp = ep * this->encoder_motor_ratio;
+
+                    this->currentAngle = -1.57; // -90 degress
                     this->targetAngle = -1.57;
+                    this->_AccelStepper.writeEnc(ep);
+                    this->_AccelStepper.setCurrentPosition(sp);
                 } else {
+                    this->_AccelStepper.writeEnc(0);
+                    this->_AccelStepper.setCurrentPosition(0);
                     this->currentAngle = 0;
                     this->targetAngle = 0;
                 }
