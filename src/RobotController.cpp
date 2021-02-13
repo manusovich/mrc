@@ -311,7 +311,7 @@ void RobotController::setTargetLogicalAngle(unsigned int index,
 }
 
 void RobotController::runCalibration() {
-    for (size_t i = 0; i < 6; i++) {
+    for (size_t i = 0; i < 1; i++) {
         this->Servos[i]->runCalibration();
     }
 }
