@@ -1,8 +1,8 @@
 #include "Logger.h"
 
 // 0> ONLY TEST 1> ERROR 2> WARNING 3> INFO
-#define LOG_LEVEL 3
-# define DEBUG 0
+#define LOG_LEVEL 0
+# define DEBUG 1
 
 #ifndef UNIT_TEST
 
