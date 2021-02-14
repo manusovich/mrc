@@ -162,7 +162,7 @@ void VarSpeedServo::setTargetRadAngle(float angleRad)
     +", setTargetMotorSteps=" + String(this->targetSteps) + " encoder_motor_ratio=" + String(this->encoder_motor_ratio));
     
     this->_AccelStepper.moveTo(this->targetSteps);
-    this->_AccelStepper.setSpeed(500 * this->moveDirection);
+    this->_AccelStepper.setAcceleration(2000);
   }
 
 float VarSpeedServo::getTargetRadAngle()
@@ -284,21 +284,12 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
             + String(this->_AccelStepper.readEnc()) + ". deviation=" + String(this->_AccelStepper.computeDeviation()));  
                 this->_AccelStepper.synchroniseMotorWithEncoder();    
                 
-                // if (this->step == 2) {
-                //     float ep = this->revPulses / (2 * PI) * (-1.57) * this->moveDirection; 
-                //     float sp = ep * this->encoder_motor_ratio;
-
-                //     this->currentAngle = -1.57; // -90 degress
-                //     this->targetAngle = -1.57;
-                //     this->_AccelStepper.writeEnc(ep);
-                //     this->_AccelStepper.setCurrentPosition(sp);
-                // } else {
+               
                     this->_AccelStepper.writeEnc(0);
                     this->_AccelStepper.setCurrentPosition(0);
                     this->currentAngle = 0;
                     this->targetAngle = 0;
-                // }
-           
+               
                 
                 logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - Encoder and current angle reseted. 0-Position");
                 calibrationMode = 5;
@@ -370,7 +361,7 @@ bool VarSpeedServo::atTargetAngle()
 
 unsigned int VarSpeedServo::move()
 {
-    this->_AccelStepper.runSpeed();
+    this->_AccelStepper.run();
     return 0;
 }
 
