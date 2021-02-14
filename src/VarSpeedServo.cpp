@@ -163,8 +163,7 @@ void VarSpeedServo::setTargetRadAngle(float angleRad)
     
     this->_AccelStepper.setSpeed(2000);
     this->_AccelStepper.moveTo(this->targetSteps);
-    this->_AccelStepper.setAcceleration(2000);
-  }
+}
 
 float VarSpeedServo::getTargetRadAngle()
 {
