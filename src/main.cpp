@@ -72,8 +72,6 @@ namespace
 
 void setup()
 {
-    Serial.begin(9600);
-
     Eepromstorage.clear();
     // --- show start screen ---
     // Display.begin();
@@ -175,9 +173,9 @@ void setup()
     //Timer1.initialize( updateServosEveryMs ); // 20ms
     //Timer1.attachInterrupt(updateServos);
 
-    pinMode(pin_internal_led, OUTPUT);
+    // pinMode(pin_internal_led, OUTPUT);
     // pinMode(pin_servo_update_status_led, OUTPUT);
-    digitalWrite(pin_internal_led, HIGH);
+    // digitalWrite(pin_internal_led, HIGH);
 }
 
 void onIncomingData(char c)
@@ -191,7 +189,7 @@ volatile long maxTimer;
 
 void updateServos()
 {
-    digitalLow(pin_internal_led);
+    // digitalLow(pin_internal_led);
 
     // timer = micros();
 
@@ -201,7 +199,7 @@ void updateServos()
     }
 
     // todo use volatile and ATOMIC on angle buffer and stuff
-    digitalHigh(pin_internal_led);
+    // digitalHigh(pin_internal_led);
 }
 
 // void renderDisplay();
