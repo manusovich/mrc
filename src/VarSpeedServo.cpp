@@ -361,7 +361,7 @@ bool VarSpeedServo::atTargetAngle()
 
 unsigned int VarSpeedServo::move()
 {
-    this->_AccelStepper.run();
+    this->_AccelStepper.runSpeed();
     return 0;
 }
 
