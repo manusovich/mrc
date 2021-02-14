@@ -48,11 +48,11 @@ const float servoConfig[6][13] = {
 
 // mor mp-robot-a/mp-robot-kit
 float geometry[5][3] = {
-    {4.6, 0, 7.9},
-    {0, 0, 11.7},
-    {1, 0, 1.5},
-    {12.15, 0, 0},
-    {0, 0, -3}};
+    {0.7, 1, 2.5},
+    {0, 0, 4.8},
+    {0, -1, 0.8},
+    {3, 0, 0},
+    {0.3, 0, 0}};
 
 // E.g. joint 0 cant be < 90° to not crash into itself
 float logicAngleLimits[6][2] = {
