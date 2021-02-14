@@ -36,49 +36,48 @@
 #define j6_encB_pin 29
 #define j6_hs_pin 41
 
-// step motor step pin, step motor dir pin, hall sensor pin, maxAngularVel degree/sec, encoder a pin, encoder b pin, 
-// angleDegMin, angleDegMax, home position, calibration direction, moving direction, revsteps, revpulses 
+// step motor step pin, step motor dir pin, hall sensor pin, maxAngularVel degree/sec, encoder a pin, encoder b pin,
+// angleDegMin, angleDegMax, home position, calibration direction, moving direction, revsteps, revpulses
 const float servoConfig[6][13] = {
-    { j1_step_pin, j1_dir_pin, j1_hs_pin, 300 * DEG_TO_RAD,  j1_encA_pin, j1_encB_pin,  -90.00 * DEG_TO_RAD,  90.00 * DEG_TO_RAD, 0, -1, 1, 64000, 81914},
-    { j2_step_pin, j2_dir_pin, j2_hs_pin, 300 * DEG_TO_RAD,  j2_encA_pin, j2_encB_pin,  -45.00 * DEG_TO_RAD,  90.00 * DEG_TO_RAD, 0, -1, -1, 40000 * 2, 51200 * 2},
-    { j3_step_pin, j3_dir_pin, j3_hs_pin, 300 * DEG_TO_RAD,  j3_encA_pin, j3_encB_pin,  -45.00 * DEG_TO_RAD,  90.00 * DEG_TO_RAD, 0, 1, -1, 80000, 102300},
-    { j4_step_pin, j4_dir_pin, j4_hs_pin, 300 * DEG_TO_RAD,  j4_encA_pin, j4_encB_pin,  -90.00 * DEG_TO_RAD,  90.00 * DEG_TO_RAD, 0, -1, -1, 43948 * 1.41, 56258 * 1.41},
-    { j5_step_pin, j5_dir_pin, j5_hs_pin, 300 * DEG_TO_RAD,  j5_encA_pin, j5_encB_pin, -45.00 * DEG_TO_RAD,  100.00 * DEG_TO_RAD, 0, -1, -1, 5000 * 6.5, 3197 * 6.5},
-    { j6_step_pin, j6_dir_pin, j6_hs_pin, 300 * DEG_TO_RAD,  j6_encA_pin, j6_encB_pin,  -130.00 * DEG_TO_RAD,  130.00 * DEG_TO_RAD, 0, 1, -1, 14500 * 2.15, 18549 * 2.15}
-};
+    {j1_step_pin, j1_dir_pin, j1_hs_pin, 300 * DEG_TO_RAD, j1_encA_pin, j1_encB_pin, -90.00 * DEG_TO_RAD, 90.00 * DEG_TO_RAD, 0, -1, 1, 64000, 81914},
+    {j2_step_pin, j2_dir_pin, j2_hs_pin, 300 * DEG_TO_RAD, j2_encA_pin, j2_encB_pin, -130.00 * DEG_TO_RAD, 30.00 * DEG_TO_RAD, 0, -1, -1, 40000 * 2, 51200 * 2},
+    {j3_step_pin, j3_dir_pin, j3_hs_pin, 300 * DEG_TO_RAD, j3_encA_pin, j3_encB_pin, -45.00 * DEG_TO_RAD, 90.00 * DEG_TO_RAD, 0, 1, -1, 80000, 102300},
+    {j4_step_pin, j4_dir_pin, j4_hs_pin, 300 * DEG_TO_RAD, j4_encA_pin, j4_encB_pin, -90.00 * DEG_TO_RAD, 90.00 * DEG_TO_RAD, 0, -1, -1, 43948 * 1.41, 56258 * 1.41},
+    {j5_step_pin, j5_dir_pin, j5_hs_pin, 300 * DEG_TO_RAD, j5_encA_pin, j5_encB_pin, -45.00 * DEG_TO_RAD, 100.00 * DEG_TO_RAD, 0, -1, -1, 5000 * 6.5, 3197 * 6.5},
+    {j6_step_pin, j6_dir_pin, j6_hs_pin, 300 * DEG_TO_RAD, j6_encA_pin, j6_encB_pin, -130.00 * DEG_TO_RAD, 130.00 * DEG_TO_RAD, 0, 1, -1, 14500 * 2.15, 18549 * 2.15}};
 
 // mor mp-robot-a/mp-robot-kit
 float geometry[5][3] = {
-    {    4.6, 0,    7.9 },
-    {      0, 0,   11.7 },
-    {      1, 0,    1.5 },
-    {  12.15, 0,      0 },
-    {      0, 0,     -3 }
-};
+    {4.6, 0, 7.9},
+    {0, 0, 11.7},
+    {1, 0, 1.5},
+    {12.15, 0, 0},
+    {0, 0, -3}};
 
 // E.g. joint 0 cant be < 90° to not crash into itself
 float logicAngleLimits[6][2] = {
-    { servoConfig[0][6],
-      servoConfig[0][7] },
-    { servoConfig[1][6],
-      servoConfig[1][7] },
-    { servoConfig[2][6],
-      servoConfig[2][7] },
-    { servoConfig[3][6],
-      servoConfig[3][7] },
-    { servoConfig[4][6],
-      servoConfig[4][7] },
-    { servoConfig[5][6],
-      servoConfig[5][7] }
-};
+    {servoConfig[0][6],
+     servoConfig[0][7]},
+    {servoConfig[1][6],
+     servoConfig[1][7]},
+    {servoConfig[2][6],
+     servoConfig[2][7]},
+    {servoConfig[3][6],
+     servoConfig[3][7]},
+    {servoConfig[4][6],
+     servoConfig[4][7]},
+    {servoConfig[5][6],
+     servoConfig[5][7]}};
 
 // relation between physical and logical angles based on robot kinematic coupling.
-void logicalToPhysicalAngles(float angles[6]) {
-    //angles[2] += angles[1];
+void logicalToPhysicalAngles(float angles[6])
+{
+  //angles[2] += angles[1];
 }
 
-void physicalToLogicalAngles(float angles[6]) {
-    //angles[2] -= angles[1];
+void physicalToLogicalAngles(float angles[6])
+{
+  //angles[2] -= angles[1];
 }
 
 // 4 axis
@@ -93,4 +92,4 @@ void physicalToLogicalAngles(float angles[6]) {
 
 // float geometry[5][3] = { { 2.5 + 2.3, 7.3, 0 }, { 0, 13.0, 0 }, { 1, 0, 0 }, { 12.6, 0, 0 }, { 0, -3.6, 0 } };
 
-unsigned int pinMap[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; // todo
+unsigned int pinMap[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // todo
