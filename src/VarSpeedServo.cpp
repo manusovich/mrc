@@ -161,7 +161,7 @@ void VarSpeedServo::setTargetRadAngle(float angleRad)
     + String(this->targetAngle) + ", setTargetEncPosition=" + String(this->targetEncPosition)
     +", setTargetMotorSteps=" + String(this->targetSteps) + " encoder_motor_ratio=" + String(this->encoder_motor_ratio));
     
-    this->_AccelStepper.setSpeed(2000);
+    this->_AccelStepper.setSpeed(400);
     this->_AccelStepper.moveTo(this->targetSteps);
 }
 
@@ -361,7 +361,7 @@ bool VarSpeedServo::atTargetAngle()
 
 unsigned int VarSpeedServo::move()
 {
-    this->_AccelStepper.runSpeed();
+    this->_AccelStepper.run();
     return 0;
 }
 
