@@ -302,8 +302,6 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
                 
                 logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - Encoder and current angle reseted. 0-Position");
                 calibrationMode = 5;
-
-                 this->_AccelStepper.setSpeed(500.0);
             }
         }
 
