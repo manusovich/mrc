@@ -162,6 +162,7 @@ void VarSpeedServo::setTargetRadAngle(float angleRad)
     +", setTargetMotorSteps=" + String(this->targetSteps) + " encoder_motor_ratio=" + String(this->encoder_motor_ratio));
     
     this->_AccelStepper.setAcceleration(0);
+    this->_AccelStepper.setMaxSpeed(200.0);
     this->_AccelStepper.moveTo(this->targetSteps);
 }
 
