@@ -162,7 +162,6 @@ void VarSpeedServo::setTargetRadAngle(float angleRad)
     +", setTargetMotorSteps=" + String(this->targetSteps) + " encoder_motor_ratio=" + String(this->encoder_motor_ratio));
     
     this->_AccelStepper.setAcceleration(0);
-    this->_AccelStepper.setMaxSpeed(200.0);
     this->_AccelStepper.moveTo(this->targetSteps);
 }
 
@@ -200,6 +199,7 @@ float VarSpeedServo::getMaxAngleVelocity()
 void VarSpeedServo::runCalibration() {
     this->calibrationMode = 1;
     logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - Calibration mode");
+    this->_AccelStepper.setMaxSpeed(2000.0);
     this->_AccelStepper.move(-100000 * this->direction);
     this->_AccelStepper.setSpeed(-2000.0 * this->direction);
 }
@@ -294,6 +294,7 @@ unsigned int VarSpeedServo::process(unsigned int deltaT)
                 
                 logger.info("XXX (" + String(this->step) + "/" + String(this->dir) +") - Encoder and current angle reseted. 0-Position");
                 calibrationMode = 5;
+                this->_AccelStepper.setMaxSpeed(200.0);
             }
         }
 
