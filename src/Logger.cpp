@@ -2,7 +2,7 @@
 
 // 0> ONLY TEST 1> ERROR 2> WARNING 3> INFO
 #define LOG_LEVEL 0
-# define DEBUG 1
+# define DEBUG 3
 
 #ifndef UNIT_TEST
 
